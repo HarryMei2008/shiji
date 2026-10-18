@@ -1,0 +1,65 @@
+/* ============================================================
+   拾季 SHIJI · Art Direction Tokens v0.1
+   来源：refs/ 定调参考图（深绿主视觉 + 情绪板 + 米白反向参考）
+   用法：整站引用本文件，禁止在组件里写裸色值
+   ============================================================ */
+
+:root {
+  /* ---- 色彩 ---- */
+  /* 深色系（主基调，来自深绿主视觉） */
+  --bg-abyss:   #141F18;  /* 最深底色，页面暗部 / 页脚 */
+  --bg-forest:  #2E4232;  /* 主深绿，取自参考图墙面 */
+  --bg-forest-2:#243528;  /* 深绿的降一档，用于分区层次 */
+
+  /* 浅色系（备用基调，来自米白反向参考） */
+  --bg-cream:   #EDE7DC;  /* 主米白，取自反向参考墙面 */
+  --bg-paper:   #F6F2EA;  /* 更亮一档，浅色区底色 */
+
+  /* 文字 */
+  --ink-light:  #F1EBDF;  /* 深底上的文字，暖白 */
+  --ink-dim:    #C9C2B2;  /* 深底上的次级文字 */
+  --ink-dark:   #1F2A22;  /* 浅底上的文字 */
+  --ink-dim-dark:#6E7263; /* 浅底上的次级文字 */
+
+  /* 强调色（克制使用，占比 < 5%） */
+  --accent-copper: #A06B3E; /* 铜金：按钮描边、hover、数据高亮 */
+  --accent-tomato: #B4462F; /* 番茄红：仅用于极少数 CTA / 状态点 */
+
+  /* 分割线 / 描边 */
+  --line-on-dark:  rgba(241, 235, 223, 0.14);
+  --line-on-light: rgba(31, 42, 34, 0.14);
+
+  /* ---- 字体 ---- */
+  --font-display: "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* 字号体系（desktop 基准） */
+  --fs-hero:    clamp(3rem, 7vw, 6rem);
+  --fs-h1:      clamp(2.2rem, 4.5vw, 3.6rem);
+  --fs-h2:      clamp(1.6rem, 3vw, 2.4rem);
+  --fs-body:    1rem;
+  --fs-caption: 0.8125rem;
+  --tracking-wide: 0.08em;   /* 标题微加宽，宋体显贵气 */
+  --tracking-label: 0.22em;  /* 小标签字距，全大写英文字用 */
+
+  /* ---- 光与质感 ---- */
+  /* 全站统一：光从左上来（与主视觉一致），动效也遵循这个方向 */
+  --grain-opacity: 0.05;     /* 胶片颗粒覆盖层透明度 */
+  --shadow-soft: 0 24px 60px -24px rgba(10, 16, 12, 0.55);
+  --vignette: radial-gradient(ellipse at center, transparent 55%, rgba(10, 16, 12, 0.35) 100%);
+
+  /* ---- 动效节奏（定调图的"呼吸感"翻译成时间） ---- */
+  --ease-out-long: cubic-bezier(0.16, 1, 0.3, 1);   /* 入场：先快后极缓 */
+  --ease-soft:     cubic-bezier(0.33, 1, 0.68, 1);  /* 常规过渡 */
+  --dur-fast:  280ms;
+  --dur-mid:   640ms;
+  --dur-slow:  1100ms;   /* 大图 reveal、章节转场用 */
+  --stagger:   90ms;     /* 同组元素依次入场间隔 */
+}
+
+/* ---- 语义引用示例 ----
+   .hero    { background: var(--bg-forest); color: var(--ink-light); }
+   .section-cream { background: var(--bg-paper); color: var(--ink-dark); }
+   强调色纪律：--accent-tomato 一屏最多出现一次。
+*/

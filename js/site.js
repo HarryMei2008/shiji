@@ -208,7 +208,6 @@
     const elBoxItems = $('#boxItems');
 
     let inBox = false;
-    let pendingAdd = false;
     let signedName = null;   // 由 auth 模块通过事件同步，不直接读存储
 
     const CIRC = 2 * Math.PI * 39;
@@ -343,10 +342,10 @@
     elCta.addEventListener('click', addToBox);
 
     // 「登录后保存」是用户主动点的，这时才拉起注册
+    // reason 会一路带到登录成功之后：明确是「来存这一箱」的，就以眼前这箱为准
     document.addEventListener('click', e => {
       if (e.target.closest('#boxSave') && !signedName) {
-        pendingAdd = true;
-        document.dispatchEvent(new CustomEvent('shiji:need-auth'));
+        document.dispatchEvent(new CustomEvent('shiji:need-auth', { detail: { reason: 'save-box' } }));
       }
     });
 
@@ -710,9 +709,13 @@
     const touched = { user: false, pass: false, age: false };
 
     // 未失焦前只显示「已达成」，不显示红叉——避免边打字边被指责
+    // 用户名先去掉首尾空格再校验：否则「  123  」能绕过「不能全是数字」，
+    // 存进去的却是 "123"，校验和落库用两套值迟早出事
+    const norm = (key, v) => (key === 'user' ? v.trim() : v);
+
     function paint(key) {
       const { input, list } = FIELDS[key];
-      const v = input.value;
+      const v = norm(key, input.value);
       $$('li', list).forEach(li => {
         li.classList.remove('ok', 'bad');
         if (!v.length) return;
@@ -722,7 +725,7 @@
     }
 
     const fieldOk = key => {
-      const v = FIELDS[key].input.value;
+      const v = norm(key, FIELDS[key].input.value);
       return v.length > 0 && Object.keys(RULES[key]).every(k => RULES[key][k](v));
     };
 
@@ -930,6 +933,26 @@
       document.dispatchEvent(new CustomEvent('shiji:restore-draft', { detail: draft }));
     }
 
+    // 计算器当前这一箱（存在 shiji.draft 里），用于「登录后保存这一箱」
+    function readLocalDraft() {
+      try {
+        const d = JSON.parse(localStorage.getItem('shiji.draft') || 'null');
+        if (!d) return null;
+        const dishes = Array.isArray(d.dishes) ? d.dishes : [];
+        const have   = Array.isArray(d.have)   ? d.have   : [];
+        return (dishes.length || have.length) ? { dishes, have } : null;
+      } catch (e) { return null; }
+    }
+
+    function saveDraftToUser(name, draft) {
+      const users = readUsers();
+      if (!users[name]) return;
+      users[name] = Object.assign({}, users[name], { draft });
+      writeUsers(users);
+    }
+
+    const draftHasContent = d => !!(d && ((d.dishes && d.dishes.length) || (d.have && d.have.length)));
+
     // 计算器每次变动都会派发 shiji:draft，这里把它写到当前账号名下
     document.addEventListener('shiji:draft', e => {
       const rec = currentUser();
@@ -994,8 +1017,12 @@
       }
 
       users[name] = { u: name, h: await digest(FIELDS.pass.input.value), age, at: Date.now() };
+      // 注册前挑好的这一箱，直接归到新账号名下——否则「登录后保存这一箱」等于没保存
+      const seed = readLocalDraft();
+      if (seed) users[name].draft = seed;
       const saved = writeUsers(users);
       writeSession(name);
+      authIntent = null;
 
       // 未满 18 岁：不拦注册，而是把页脚的分级开关自动拨到未成年那档
       if (age < 18) {
@@ -1043,24 +1070,52 @@
       document.dispatchEvent(new CustomEvent('shiji:auth-changed', { detail: { user: rec.u } }));
 
       // 「这一箱还给你留着」必须有依据：真的从账号里恢复草稿
-      const draft = rec.draft;
-      const hasDraft = draft && ((draft.dishes && draft.dishes.length) || (draft.have && draft.have.length));
-      if (hasDraft) pushDraftToCalculator(draft);
+      // 规则：明确点了「登录后保存这一箱」的，以眼前这箱为准写进账号；
+      //       其余情况（比如从右上角登录）以账号里的旧草稿为准，不覆盖它
+      const local  = readLocalDraft();
+      const stored = draftHasContent(rec.draft) ? rec.draft : null;
+      const preferLocal = authIntent === 'save-box';
+      let restored = false;
 
-      showDone(
-        '欢迎回来',
-        hasDraft
-          ? rec.u + '，上次勾的 ' + draft.dishes.length + ' 道菜和 ' + draft.have.length + ' 样食材已经恢复了。'
-          : rec.u + '，这一箱还给你留着。',
-        '继续挑选', close
-      );
+      if (local && (preferLocal || !stored)) {
+        saveDraftToUser(rec.u, local);
+      } else if (stored) {
+        pushDraftToCalculator(stored);
+        restored = true;
+      }
+      authIntent = null;
+
+      const boxText = (local && (preferLocal || !stored))
+        ? local.dishes.length + ' 道菜和 ' + local.have.length + ' 样食材存进你账号了，换台设备登录也在。'
+        : restored
+          ? '上次勾的 ' + stored.dishes.length + ' 道菜和 ' + (stored.have || []).length + ' 样食材已经恢复了。'
+          : '这一箱还给你留着。';
+
+      showDone('欢迎回来', rec.u + '，' + boxText, '继续挑选', close);
     });
 
     /* ---------- 订单：点结算直接看订单，不再要求先登录 ---------- */
     // 「登录后保存这一箱」是用户主动选择登录的入口，仍然拉起注册
-    document.addEventListener('shiji:need-auth', () => openModal('signup'));
+    let authIntent = null;
+    document.addEventListener('shiji:need-auth', e => {
+      authIntent = (e.detail && e.detail.reason) || 'generic';
+      openModal('signup');
+    });
 
     let lastBox = null;
+
+    // 箱子内容一变，之前算出的结算数据立刻作废。
+    // 否则改完菜再点「结算」，会拿旧价格、旧菜品去下单——账对不上。
+    document.addEventListener('shiji:need', () => {
+      if (!lastBox) return;
+      lastBox = null;
+      const planCta = $('#planCta');
+      const meta = $('#planMeta');
+      if (!planCta) return;
+      planCta.disabled = false;
+      planCta.innerHTML = '开始订阅<span class="arrow">→</span>';
+      if (meta) meta.textContent = '按每周配送，四箱一季，到期自动暂停';
+    });
 
     document.addEventListener('shiji:box', e => {
       lastBox = e.detail;
@@ -1123,8 +1178,13 @@
     });
 
     /* ---------- 初始化 ---------- */
+    // 刷新后恢复登录态时必须广播一次：否则计算器不知道已登录，
+    // 加箱后仍会显示「登录后保存这一箱」，点一下又让你重新注册
     const existing = currentUser();
-    if (existing) setSigned(existing.u);
+    if (existing) {
+      setSigned(existing.u);
+      document.dispatchEvent(new CustomEvent('shiji:auth-changed', { detail: { user: existing.u } }));
+    }
   })();
 
 })();

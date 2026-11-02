@@ -6,7 +6,7 @@
 <title>拾季 SHIJI — 一期一食，按时而食</title>
 <meta name="description" content="拾季是一个高端当季食材订阅品牌。一季十二味，48 小时从产地到餐桌。缺什么补什么，不多送一样。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E4232'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='%23EDE7DC' font-family='serif'%3E%E6%8B%BE%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/site.css?v=2310">
+<link rel="stylesheet" href="css/site.css?v=2320">
 </head>
 <body>
 
@@ -14,20 +14,24 @@
 
 <!-- ================= 导航 ================= -->
 <nav class="nav" id="nav">
-  <a class="brand" href="#top">
-    <b>拾季</b><span>Shiji</span>
-  </a>
+  <div class="nav-start">
+    <a class="brand" href="#top">
+      <b>拾季</b><span>Shiji</span>
+    </a>
+    <button class="lang-sw" id="langSwitch" type="button" aria-pressed="false"
+            aria-label="切换到英文" title="切换到英文">EN</button>
+  </div>
   <ul class="nav-links">
-    <li><a href="#menu">本周菜单</a></li>
-    <li><a href="#orbit">当季十二味</a></li>
-    <li><a href="#calc">配齐计算器</a></li>
-    <li><a href="#plan">订阅</a></li>
+    <li><a href="#menu" data-en="This week’s menu">本周菜单</a></li>
+    <li><a href="#orbit" data-en="Twelve in season">当季十二味</a></li>
+    <li><a href="#calc" data-en="Pantry calculator">配齐计算器</a></li>
+    <li><a href="#plan" data-en="Subscribe">订阅</a></li>
   </ul>
   <div class="nav-end">
     <button class="nav-login" id="authOpen" type="button" aria-haspopup="dialog">
       <span id="authLabel">登录</span>
     </button>
-    <a class="nav-cta" href="#plan">立即订阅</a>
+    <a class="nav-cta" href="#plan" data-en="Subscribe now">立即订阅</a>
   </div>
 </nav>
 
@@ -42,32 +46,32 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
-      <p class="eyebrow">霜降 · 第二十一期</p>
+      <p class="eyebrow" data-en="Frost Descent · Issue 21">霜降 · 第二十一期</p>
 
       <h1>
-        <span data-mask><span>当季，</span></span>
-        <span data-mask><span>才值得<em>上桌</em>。</span></span>
+        <span data-mask><span data-en="In season,">当季，</span></span>
+        <span data-mask><span data-en="is worth <em>serving</em>.">才值得<em>上桌</em>。</span></span>
       </h1>
 
-      <p class="hero-lede">
+      <p class="hero-lede" data-en="No choosing, no planning. Open it and you have the twelve things this season should taste like — what pairs with what, what is missing, how to cook it. All of it is in the box.">
         不用挑，不用想。打开就是这一季该吃的十二样东西——
         该配什么、缺什么、怎么烧，都在箱子里。
       </p>
 
       <div class="hero-actions">
-        <a class="btn" href="#calc">配一配今晚的菜<span class="arrow">→</span></a>
-        <a class="link-ghost" href="#menu">看看本周菜单</a>
+        <a class="btn" href="#calc" data-en="Build tonight’s dish<span class=&#39;arrow&#39;>→</span>">配一配今晚的菜<span class="arrow">→</span></a>
+        <a class="link-ghost" href="#menu" data-en="See this week’s menu">看看本周菜单</a>
       </div>
 
       <div class="hero-stat">
-        <div><b>12</b><span>本季食材</span></div>
-        <div><b>48h</b><span>产地到餐桌</span></div>
-        <div><b>1,284</b><span>本周已发出</span></div>
+        <div><b>12</b><span data-en="Seasonal items">本季食材</span></div>
+        <div><b>48h</b><span data-en="Farm to table">产地到餐桌</span></div>
+        <div><b>1,284</b><span data-en="Boxes sent this week">本周已发出</span></div>
       </div>
     </div>
   </div>
 
-  <div class="scroll-cue">向下<span class="bar"></span></div>
+  <div class="scroll-cue" data-en="Scroll<span class=&#39;bar&#39;></span>">向下<span class="bar"></span></div>
 
 </header>
 
@@ -75,13 +79,13 @@
 <section class="manifesto" id="manifesto">
   <div class="manifesto-in">
     <h2 class="statement">
-      <span class="statement-line" data-line><span>我们不相信「新鲜」</span></span>
-      <span class="statement-line" data-line><span>是一个形容词。</span></span>
-      <span class="statement-line" data-line><span>它是一个时间问题——</span></span>
-      <span class="statement-line" data-line><span>从采下到你手里，<em>48 小时</em>。</span></span>
+      <span class="statement-line" data-line><span data-en="We don’t believe “fresh”">我们不相信「新鲜」</span></span>
+      <span class="statement-line" data-line><span data-en="is an adjective.">是一个形容词。</span></span>
+      <span class="statement-line" data-line><span data-en="It is a question of time —">它是一个时间问题——</span></span>
+      <span class="statement-line" data-line><span data-en="from harvest to your hands, <em>48 hours</em>.">从采下到你手里，<em>48 小时</em>。</span></span>
     </h2>
 
-    <div class="aside-note" data-reveal>
+    <div class="aside-note" data-reveal data-en="<b>About Shiji</b>With our twelve small farms we sign seasonal purchase agreements, not volume-based price cuts. Whatever they grow, that is what ships this issue. So we never promise something is “available all year” — that usually means it was forced, stored, or flown in from somewhere else.<p class=&#39;sign&#39;>Chen Shi · Founder</p>">
       <b>关于拾季</b>
       我们和十二家小农场签的是「按季收购」，不是「按量压价」。
       他们种什么，这一期就送什么。所以我们从不承诺某样东西「全年都有」——
@@ -95,9 +99,9 @@
 <section class="orbit" id="orbit">
   <div class="orbit-in">
     <div class="orbit-copy">
-      <p class="eyebrow">本季构成</p>
-      <h2>一季，<em>十二味</em>。</h2>
-      <p>
+      <p class="eyebrow" data-en="This season’s box">本季构成</p>
+      <h2 data-en="One season, <em>twelve flavours</em>.">一季，<em>十二味</em>。</h2>
+      <p data-en="These twelve are not a random assortment. Together they make at least nine dishes — tomato with basil, chestnut with pumpkin, fig with a little salty cheese.">
         这十二样不是随意凑的。它们彼此能搭出至少九道菜——
         番茄配罗勒，栗子配南瓜，无花果配一点咸芝士。
       </p>
@@ -108,10 +112,10 @@
       <canvas id="orbitCanvas"></canvas>
       <div class="readout" id="readout">
         <span class="idx" id="pickIdx"></span>
-        <b id="pickName">当季</b>
-        <span id="pickOrigin">霜降 · 第二十一期</span>
+        <b id="pickName" data-en="In season">当季</b>
+        <span id="pickOrigin" data-en="Frost Descent · Issue 21">霜降 · 第二十一期</span>
       </div>
-      <div class="orbit-hint"><span class="dot"></span>拖动旋转</div>
+      <div class="orbit-hint" data-en="<span class=&#39;dot&#39;></span>Drag to rotate"><span class="dot"></span>拖动旋转</div>
     </div>
   </div>
 </section>
@@ -120,9 +124,9 @@
 <section class="calc" id="calc">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">配齐计算器</p>
-      <h2>你缺的，我们<em>只送缺的</em>。</h2>
-      <p>勾一下冰箱里已经有的。缺几样，就送几样，就付几样的钱。</p>
+      <p class="eyebrow" data-en="Pantry calculator">配齐计算器</p>
+      <h2 data-en="We send <em>only what you’re missing</em>.">你缺的，我们<em>只送缺的</em>。</h2>
+      <p data-en="Tick what you already have in the fridge. Whatever is missing is what we send — and what you pay for.">勾一下冰箱里已经有的。缺几样，就送几样，就付几样的钱。</p>
     </div>
 
     <div class="calc-grid">
@@ -130,16 +134,16 @@
 
         <div class="block">
           <div class="block-h">
-            <span class="step">①</span><h3>这周想做哪几道</h3>
-            <span class="tip">最多选三道 · 六道菜的料都会送</span>
+            <span class="step">①</span><h3 data-en="Which dishes this week?">这周想做哪几道</h3>
+            <span class="tip" data-en="Up to three · ingredients for all six are delivered">最多选三道 · 六道菜的料都会送</span>
           </div>
           <div class="dishes" id="dishes"></div>
         </div>
 
         <div class="block">
           <div class="block-h">
-            <span class="step">②</span><h3>冰箱里已经有的</h3>
-            <span class="tip">点一下即勾选</span>
+            <span class="step">②</span><h3 data-en="Already in your fridge">冰箱里已经有的</h3>
+            <span class="tip" data-en="Tap to tick">点一下即勾选</span>
           </div>
           <div id="pantry"></div>
         </div>
@@ -164,33 +168,33 @@
           </div>
 
           <div class="rows">
-            <div class="row"><span>已选菜品</span><b><span id="nDish">0</span> 道</b></div>
-            <div class="row"><span>需要食材</span><b><span id="nNeed">0</span> 样</b></div>
-            <div class="row"><span>还差</span><b><span id="nMiss">0</span> 样</b></div>
+            <div class="row"><span data-en="Dishes">已选菜品</span><b><span id="nDish">0</span> <span class="u" data-en="dishes">道</span></b></div>
+            <div class="row"><span data-en="Ingredients">需要食材</span><b><span id="nNeed">0</span> <span class="u" data-en="items">样</span></b></div>
+            <div class="row"><span data-en="Still missing">还差</span><b><span id="nMiss">0</span> <span class="u" data-en="items">样</span></b></div>
           </div>
 
-          <p class="need-label">需求清单</p>
+          <p class="need-label" data-en="Shopping list">需求清单</p>
           <div class="need" id="need"></div>
 
           <div class="total">
-            <span>本箱合计</span>
+            <span data-en="Box total">本箱合计</span>
             <b><i>¥</i><u id="price">0</u></b>
           </div>
 
           <button class="btn" id="cta" disabled>加入本周箱<span class="arrow">→</span></button>
 
           <div class="box-note" id="ctaBox" hidden>
-            <p class="box-title">已加入本周箱<span id="boxMeta"></span></p>
+            <p class="box-title"><span data-en="Added to this week’s box">已加入本周箱</span><span id="boxMeta"></span></p>
             <div class="box-items" id="boxItems"></div>
             <div class="box-actions">
-              <a class="box-go" href="#plan">去结算<span class="arrow">→</span></a>
+              <a class="box-go" href="#plan" data-en="Checkout<span class=&#39;arrow&#39;>→</span>">去结算<span class="arrow">→</span></a>
               <button class="box-save" id="boxSave" type="button">登录后保存这一箱</button>
             </div>
           </div>
 
-          <p class="note">满 3 样免运费 · 次日达 · 可随时暂停</p>
+          <p class="note" data-en="Free shipping over 3 items · next-day delivery · pause anytime">满 3 样免运费 · 次日达 · 可随时暂停</p>
 
-          <button class="clear" id="clear">清空重置</button>
+          <button class="clear" id="clear" data-en="Reset">清空重置</button>
         </div>
       </aside>
     </div>
@@ -201,9 +205,9 @@
 <section class="menu" id="menu">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">本周菜单</p>
-      <h2>六道菜，<em>一步一步来</em>。</h2>
-      <p>每箱附一张手写步骤卡。点开看完整做法，照着做不会失手。</p>
+      <p class="eyebrow" data-en="This week’s menu">本周菜单</p>
+      <h2 data-en="Six dishes, <em>one step at a time</em>.">六道菜，<em>一步一步来</em>。</h2>
+      <p data-en="Every box comes with a hand-written step card. Open it for the full method — follow it and nothing goes wrong.">每箱附一张手写步骤卡。点开看完整做法，照着做不会失手。</p>
     </div>
 
     <div class="menu-list" id="menuList">
@@ -211,14 +215,14 @@
       <div class="menu-row">
         <button class="menu-head" aria-expanded="false">
           <span class="idx">01</span>
-          <span class="name">番茄罗勒沙拉</span>
-          <span class="time">8 分钟 · 无需开火</span>
+          <span class="name" data-en="Tomato &amp; basil salad">番茄罗勒沙拉</span>
+          <span class="time" data-en="8 min · no heat">8 分钟 · 无需开火</span>
           <span class="plus" aria-hidden="true"></span>
         </button>
         <div class="menu-body">
           <div class="menu-body-in">
             <div class="menu-cols">
-              <ol class="steps">
+              <ol class="steps" data-en="<li>Wash the tomatoes and cut them into <b>thick slices</b> — too thin and they fall apart the moment you toss them.</li><li>Use only the basil leaves and tear them by hand — a knife oxidises the cut edge and takes half the aroma with it.</li><li>Layer the tomatoes, scatter the basil, run a circle of olive oil over the top.</li><li>Add sea salt and freshly ground pepper, then wait <b>5 minutes</b> for the salt to draw the juices out.</li><li>Toss once more just before eating. Don’t pour away what collects on the plate — that is the whole flavour.</li>">
                 <li>番茄洗净，切成<b>厚片</b>，不要切太薄，否则一拌就散。</li>
                 <li>罗勒只取叶子，用手撕开——刀刃会氧化切面，香气损失一半。</li>
                 <li>番茄铺底，罗勒撒上，淋一圈橄榄油。</li>
@@ -226,9 +230,9 @@
                 <li>吃之前再拌一次，盘底的汁别倒，那是全部的味道。</li>
               </ol>
               <div class="menu-side">
-                <h4>本箱用料</h4>
-                <span class="tag">番茄</span><span class="tag">罗勒</span><span class="tag">橄榄油</span>
-                <p>关键只有两个字：<b>别冰</b>。番茄从冰箱拿出来直接吃，香气是被冻住的。提前半小时放到室温。</p>
+                <h4 data-en="In this box">本箱用料</h4>
+                <span class="tag" data-en="Tomato">番茄</span><span class="tag" data-en="Basil">罗勒</span><span class="tag" data-en="Olive oil">橄榄油</span>
+                <p data-en="The only rule is two words: <b>never chill</b>. Straight from the fridge the aroma is locked in. Leave them at room temperature for half an hour first.">关键只有两个字：<b>别冰</b>。番茄从冰箱拿出来直接吃，香气是被冻住的。提前半小时放到室温。</p>
               </div>
             </div>
           </div>
@@ -238,14 +242,14 @@
       <div class="menu-row">
         <button class="menu-head" aria-expanded="false">
           <span class="idx">02</span>
-          <span class="name">无花果芝士拼</span>
-          <span class="time">5 分钟 · 无需开火</span>
+          <span class="name" data-en="Fig &amp; cheese plate">无花果芝士拼</span>
+          <span class="time" data-en="5 min · no heat">5 分钟 · 无需开火</span>
           <span class="plus" aria-hidden="true"></span>
         </button>
         <div class="menu-body">
           <div class="menu-body-in">
             <div class="menu-cols">
-              <ol class="steps">
+              <ol class="steps" data-en="<li>Don’t cut the figs — <b>tear</b> them open by hand. A knife presses the honeyed flesh out onto the board.</li><li>Take the mozzarella out of the fridge and let it sit <b>10 minutes</b>; cold cheese tastes of nothing.</li><li>Set the torn figs cut-side up, tear the cheese into rough chunks and tuck them in between.</li><li>Lay whole basil leaves on top — don’t chop them, the edges go black.</li><li>Olive oil, a little sea salt. Salt is the only thing here that needs judgement — when it’s right, stop.</li>">
                 <li>无花果不用刀切，用手<b>掰开</b>——刀会把蜜一样的果肉压出来，汁全留在案板上。</li>
                 <li>马苏里拉从冷藏取出，静置 <b>10 分钟</b> 回温，冷的芝士尝不出奶香。</li>
                 <li>掰开的无花果朝上摆，芝士撕成不规则大块，塞在果子之间。</li>
@@ -253,9 +257,9 @@
                 <li>淋橄榄油，撒一点海盐。盐是这道菜唯一需要判断的东西——够了就别再加。</li>
               </ol>
               <div class="menu-side">
-                <h4>本箱用料</h4>
-                <span class="tag">无花果</span><span class="tag">马苏里拉</span><span class="tag">罗勒</span>
-                <p>这道菜<b>五分钟就该上桌</b>。摆好之后放超过二十分钟，无花果会出水，颜色也会塌下去。</p>
+                <h4 data-en="In this box">本箱用料</h4>
+                <span class="tag" data-en="Fig">无花果</span><span class="tag" data-en="Mozzarella">马苏里拉</span><span class="tag" data-en="Basil">罗勒</span>
+                <p data-en="This dish should be on the table <b>within five minutes</b>. Leave it longer than twenty and the figs weep and the colour slumps.">这道菜<b>五分钟就该上桌</b>。摆好之后放超过二十分钟，无花果会出水，颜色也会塌下去。</p>
               </div>
             </div>
           </div>
@@ -265,14 +269,14 @@
       <div class="menu-row">
         <button class="menu-head" aria-expanded="false">
           <span class="idx">03</span>
-          <span class="name">栗子南瓜浓汤</span>
-          <span class="time">25 分钟 · 一锅到底</span>
+          <span class="name" data-en="Chestnut &amp; pumpkin soup">栗子南瓜浓汤</span>
+          <span class="time" data-en="25 min · one pot">25 分钟 · 一锅到底</span>
           <span class="plus" aria-hidden="true"></span>
         </button>
         <div class="menu-body">
           <div class="menu-body-in">
             <div class="menu-cols">
-              <ol class="steps">
+              <ol class="steps" data-en="<li>Peel and cube the pumpkin. Score the chestnuts, boil <b>8 minutes</b>, then peel — half the work.</li><li>Slice the onion, melt the butter low, cook until <b>translucent and sweet</b>. Don’t rush it.</li><li>Add pumpkin and chestnut, stir two minutes, cover with water, simmer 15 minutes until soft.</li><li>Off the heat, blend smooth. Pass it through a sieve if you want it silky.</li><li>Back on low heat, season with salt. Olive oil and black pepper over each bowl.</li>">
                 <li>南瓜去皮切块，栗子划十字后煮 <b>8 分钟</b> 再剥，省一半力气。</li>
                 <li>洋葱切丝，黄油小火化开，把洋葱炒到<b>透明发甜</b>，别急。</li>
                 <li>下南瓜和栗子翻炒两分钟，加水没过食材，煮 15 分钟至软烂。</li>
@@ -280,9 +284,9 @@
                 <li>回锅小火，加盐调味。盛碗后淋一点橄榄油，撒黑胡椒。</li>
               </ol>
               <div class="menu-side">
-                <h4>本箱用料</h4>
-                <span class="tag">栗子</span><span class="tag">南瓜</span><span class="tag">黄油</span><span class="tag">洋葱</span>
-                <p>浓汤的浓度靠<b>南瓜本身的淀粉</b>，不靠面粉。如果太稠，加的是热水不是冷水。</p>
+                <h4 data-en="In this box">本箱用料</h4>
+                <span class="tag" data-en="Chestnut">栗子</span><span class="tag" data-en="Pumpkin">南瓜</span><span class="tag" data-en="Butter">黄油</span><span class="tag" data-en="Onion">洋葱</span>
+                <p data-en="Thickness comes from <b>the pumpkin’s own starch</b>, not flour. If it’s too thick, loosen it with hot water, never cold.">浓汤的浓度靠<b>南瓜本身的淀粉</b>，不靠面粉。如果太稠，加的是热水不是冷水。</p>
               </div>
             </div>
           </div>
@@ -292,14 +296,14 @@
       <div class="menu-row">
         <button class="menu-head" aria-expanded="false">
           <span class="idx">04</span>
-          <span class="name">香菇甘蓝烩饭</span>
-          <span class="time">20 分钟 · 一锅到底</span>
+          <span class="name" data-en="Shiitake &amp; cabbage rice">香菇甘蓝烩饭</span>
+          <span class="time" data-en="20 min · one pot">20 分钟 · 一锅到底</span>
           <span class="plus" aria-hidden="true"></span>
         </button>
         <div class="menu-body">
           <div class="menu-body-in">
             <div class="menu-cols">
-              <ol class="steps">
+              <ol class="steps" data-en="<li>Slice the shiitake, shred the red cabbage finely. Dry-fry the shiitake first to drive the water out, then add butter.</li><li>Add the cabbage and cook until soft — it goes from purple to blue to dark. <b>That’s normal.</b></li><li>Tip in the rice, break up the clumps, coat every grain in the fat.</li><li>Turn the heat low, lid on, <b>3 minutes</b> to let the flavour sink in.</li><li>Off the heat, salt and fold through, rest two minutes before serving.</li>">
                 <li>香菇切片，紫甘蓝切细丝。香菇先干锅煸出水分，再下黄油。</li>
                 <li>下甘蓝炒软，颜色会从紫变蓝再变暗——<b>这是正常的</b>。</li>
                 <li>倒入米饭，压散结块，让每粒米都裹上油。</li>
@@ -307,9 +311,9 @@
                 <li>关火后撒盐拌匀，静置两分钟再盛。</li>
               </ol>
               <div class="menu-side">
-                <h4>本箱用料</h4>
-                <span class="tag">香菇</span><span class="tag">紫甘蓝</span><span class="tag">米饭</span><span class="tag">黄油</span>
-                <p>隔夜饭最好。新煮的饭水汽重，下锅会粘成一团，整锅就毁了。</p>
+                <h4 data-en="In this box">本箱用料</h4>
+                <span class="tag" data-en="Shiitake">香菇</span><span class="tag" data-en="Red cabbage">紫甘蓝</span><span class="tag" data-en="Rice">米饭</span><span class="tag" data-en="Butter">黄油</span>
+                <p data-en="Day-old rice is best. Freshly cooked rice carries too much steam and glues into one lump.">隔夜饭最好。新煮的饭水汽重，下锅会粘成一团，整锅就毁了。</p>
               </div>
             </div>
           </div>
@@ -319,14 +323,14 @@
       <div class="menu-row">
         <button class="menu-head" aria-expanded="false">
           <span class="idx">05</span>
-          <span class="name">柠檬香草烤鸡</span>
-          <span class="time">35 分钟 · 需要烤箱</span>
+          <span class="name" data-en="Lemon herb chicken">柠檬香草烤鸡</span>
+          <span class="time" data-en="35 min · oven">35 分钟 · 需要烤箱</span>
           <span class="plus" aria-hidden="true"></span>
         </button>
         <div class="menu-body">
           <div class="menu-body-in">
             <div class="menu-cols">
-              <ol class="steps">
+              <ol class="steps" data-en="<li>Salt and pepper the breast and leave <b>15 minutes</b> — no longer, or the flesh tightens.</li><li>Slice half the lemon for the base, juice the other half. Chop the parsley and mix with olive oil into a herb oil.</li><li>Put the chicken on a tray, brush all over with herb oil, cover with lemon slices.</li><li>Oven at <b>200°C</b>, 18 minutes. Don’t cut into it straight away.</li><li>Rest <b>5 minutes</b> before slicing — this is what keeps the juice on the plate.</li>">
                 <li>鸡胸用盐和黑胡椒腌 <b>15 分钟</b>，不要超过半小时，否则肉会发紧。</li>
                 <li>柠檬一半切片铺底，一半挤汁；欧芹切碎，和橄榄油拌成香草油。</li>
                 <li>鸡胸放烤盘，刷满香草油，柠檬片盖在上面。</li>
@@ -334,9 +338,9 @@
                 <li>静置 <b>5 分钟</b> 再切——这一步决定肉汁留不留在盘子里。</li>
               </ol>
               <div class="menu-side">
-                <h4>本箱用料</h4>
-                <span class="tag">柠檬</span><span class="tag">欧芹</span><span class="tag">鸡胸</span><span class="tag">橄榄油</span>
-                <p>鸡胸最怕过火。没有温度计就用手按：<b>按下去有弹性、能回弹</b>就是好了。</p>
+                <h4 data-en="In this box">本箱用料</h4>
+                <span class="tag" data-en="Lemon">柠檬</span><span class="tag" data-en="Parsley">欧芹</span><span class="tag" data-en="Chicken breast">鸡胸</span><span class="tag" data-en="Olive oil">橄榄油</span>
+                <p data-en="Overcooking is the only real risk. Without a thermometer, press it: <b>springy and it bounces back</b> means done.">鸡胸最怕过火。没有温度计就用手按：<b>按下去有弹性、能回弹</b>就是好了。</p>
               </div>
             </div>
           </div>
@@ -346,14 +350,14 @@
       <div class="menu-row">
         <button class="menu-head" aria-expanded="false">
           <span class="idx">06</span>
-          <span class="name">番茄芝士烤面包</span>
-          <span class="time">12 分钟 · 需要烤箱</span>
+          <span class="name" data-en="Tomato cheese toast">番茄芝士烤面包</span>
+          <span class="time" data-en="12 min · oven">12 分钟 · 需要烤箱</span>
           <span class="plus" aria-hidden="true"></span>
         </button>
         <div class="menu-body">
           <div class="menu-body-in">
             <div class="menu-cols">
-              <ol class="steps">
+              <ol class="steps" data-en="<li>Cut the bread <b>1.5 cm</b> thick. Thinner burns through, thicker won’t bite.</li><li>Oven at <b>220°C</b>. Toast the bare slices 4 minutes until the edges harden.</li><li>Halve the tomatoes and <b>grate</b> the cut side on a box grater — the skin stays in your hand, the flesh becomes pulp.</li><li>Spread the pulp on the toasted bread, salt, then layer mozzarella.</li><li>Back in the oven <b>5 minutes</b>, out as soon as the cheese melts. Tear the basil over at the end, never before.</li>">
                 <li>面包切 <b>1.5 厘米</b> 厚片。太薄会烤穿，太厚中间咬不动。</li>
                 <li>烤箱 <b>220°C</b> 预热，面包片先空烤 4 分钟，烤到边缘发硬。</li>
                 <li>番茄对半切开，切面朝下在刨丝器上<b>擦</b>，皮留在手里，果肉成泥。</li>
@@ -361,9 +365,9 @@
                 <li>回炉 <b>5 分钟</b>，芝士化开就出炉。最后撕罗勒叶压上去，别提前放。</li>
               </ol>
               <div class="menu-side">
-                <h4>本箱用料</h4>
-                <span class="tag">面包</span><span class="tag">番茄</span><span class="tag">马苏里拉</span><span class="tag">罗勒</span>
-                <p>先烤面包再放料，是这道菜<b>唯一不能省的一步</b>。料铺上去一起烤，面包只会被番茄汁泡软。</p>
+                <h4 data-en="In this box">本箱用料</h4>
+                <span class="tag" data-en="Bread">面包</span><span class="tag" data-en="Tomato">番茄</span><span class="tag" data-en="Mozzarella">马苏里拉</span><span class="tag" data-en="Basil">罗勒</span>
+                <p data-en="Toasting the bread first is the <b>one step you can’t skip</b>. Load it raw and the tomato juice simply soaks it soft.">先烤面包再放料，是这道菜<b>唯一不能省的一步</b>。料铺上去一起烤，面包只会被番茄汁泡软。</p>
               </div>
             </div>
           </div>
@@ -377,28 +381,28 @@
 <!-- ================= 六 · 数字（深色带） ================= -->
 <section class="numbers">
   <div class="wrap">
-    <p class="quote" data-reveal>
+    <p class="quote" data-reveal data-en="“Good ingredients don’t really need cooking.<br>They just need to arrive <em>on time</em>.”">
       「好的食材其实不需要被料理。<br>
       它只需要被<em>准时</em>送到。」
     </p>
-    <p class="quote-by" data-reveal>陈拾 · 主理人 · 第二十一期</p>
+    <p class="quote-by" data-reveal data-en="Chen Shi · Founder · Issue 21">陈拾 · 主理人 · 第二十一期</p>
 
     <div class="stats">
       <div class="stat" data-reveal>
         <b data-count="48" data-suffix="h">0</b>
-        <span>从采下到发货</span>
+        <span data-en="Harvest to dispatch">从采下到发货</span>
       </div>
       <div class="stat" data-reveal>
         <b data-count="12">0</b>
-        <span>签约小农场</span>
+        <span data-en="Partner farms">签约小农场</span>
       </div>
       <div class="stat" data-reveal>
         <b data-count="96" data-suffix="%">0</b>
-        <span>会员续订率</span>
+        <span data-en="Renewal rate">会员续订率</span>
       </div>
       <div class="stat" data-reveal>
         <b data-count="21">0</b>
-        <span>已出刊期数</span>
+        <span data-en="Issues published">已出刊期数</span>
       </div>
     </div>
   </div>
@@ -409,38 +413,38 @@
   <div class="wrap">
     <div class="plan-in">
       <div class="plan-copy">
-        <p class="eyebrow">订阅</p>
-        <h2>一周一箱，<em>随时可停</em>。</h2>
-        <p>
+        <p class="eyebrow" data-en="Subscribe">订阅</p>
+        <h2 data-en="One box a week, <em>pause anytime</em>.">一周一箱，<em>随时可停</em>。</h2>
+        <p data-en="Pricing follows what is actually in the box — it isn’t a fixed plan. Three days before each issue we text you, and you decide at that moment.">
           价格按当期实际内容浮动，不是固定套餐。
           每期开箱前三天会发短信，你可以在那一刻决定要不要。
         </p>
 
         <div class="segmented" id="segmented">
-          <button type="button" data-cycle="1" aria-pressed="true">每周</button>
-          <button type="button" data-cycle="2" aria-pressed="false">每两周</button>
-          <button type="button" data-cycle="4" aria-pressed="false">每月</button>
+          <button type="button" data-cycle="1" aria-pressed="true" data-en="Weekly">每周</button>
+          <button type="button" data-cycle="2" aria-pressed="false" data-en="Every 2 weeks">每两周</button>
+          <button type="button" data-cycle="4" aria-pressed="false" data-en="Monthly">每月</button>
         </div>
       </div>
 
       <div class="price-card">
-        <p class="plan-name">本季订阅 · 霜降</p>
+        <p class="plan-name" data-en="This season · Frost Descent">本季订阅 · 霜降</p>
 
         <div class="price-big">
-          <i>¥</i><u id="planPrice">68</u><span id="planUnit">/ 箱</span>
+          <i>¥</i><u id="planPrice">68</u><span id="planUnit" data-en="/ box">/ 箱</span>
         </div>
 
         <p class="price-meta" id="planMeta">按每周配送，四箱一季，到期自动暂停</p>
 
         <ul class="includes">
-          <li>当季食材 12 样，按需配送，不做固定搭配</li>
-          <li>每样附产地卡：谁种的、哪天采的、怎么存</li>
-          <li>六道菜的完整步骤卡，附一份手写说明</li>
-          <li>随时暂停或跳过某一期，不扣费</li>
+          <li data-en="Twelve seasonal ingredients, sent as needed — never a fixed set">当季食材 12 样，按需配送，不做固定搭配</li>
+          <li data-en="An origin card for each: who grew it, when it was picked, how to keep it">每样附产地卡：谁种的、哪天采的、怎么存</li>
+          <li data-en="Full step cards for six dishes, plus a hand-written note">六道菜的完整步骤卡，附一份手写说明</li>
+          <li data-en="Pause or skip any issue at any time, no charge">随时暂停或跳过某一期，不扣费</li>
         </ul>
 
         <button class="btn" id="planCta">开始订阅<span class="arrow">→</span></button>
-        <p class="note">虚构品牌 · 本页面仅用于演示</p>
+        <p class="note" data-en="Fictional brand · this page is a demo only">虚构品牌 · 本页面仅用于演示</p>
       </div>
     </div>
   </div>
@@ -455,38 +459,38 @@
         <a class="brand" href="#top" style="color:var(--ink-light);text-decoration:none">
           <b>拾季</b><span style="opacity:.6">Shiji</span>
         </a>
-        <p style="margin-top:18px;max-width:22em">
+        <p style="margin-top:18px;max-width:22em" data-en="One issue, one dish, eaten in season.<br>With twelve small farms, we bring the season to your door.">
           一期一食，按时而食。<br>
           和十二家小农场一起，把当季送到你家。
         </p>
       </div>
 
       <div>
-        <h5>产品</h5>
+        <h5 data-en="Product">产品</h5>
         <ul>
-          <li><a href="#menu">本周菜单</a></li>
-          <li><a href="#orbit">当季十二味</a></li>
-          <li><a href="#calc">配齐计算器</a></li>
-          <li><a href="#plan">订阅计划</a></li>
+          <li><a href="#menu" data-en="This week’s menu">本周菜单</a></li>
+          <li><a href="#orbit" data-en="Twelve in season">当季十二味</a></li>
+          <li><a href="#calc" data-en="Pantry calculator">配齐计算器</a></li>
+          <li><a href="#plan" data-en="Subscription">订阅计划</a></li>
         </ul>
       </div>
 
       <div>
-        <h5>关于</h5>
+        <h5 data-en="About">关于</h5>
         <ul>
-          <li><a href="#manifesto">品牌主张</a></li>
-          <li><a href="#manifesto">合作农场</a></li>
-          <li><a href="#">配送范围</a></li>
-          <li><a href="#">常见问题</a></li>
+          <li><a href="#manifesto" data-en="What we stand for">品牌主张</a></li>
+          <li><a href="#manifesto" data-en="Partner farms">合作农场</a></li>
+          <li><a href="#" data-en="Delivery area">配送范围</a></li>
+          <li><a href="#" data-en="FAQ">常见问题</a></li>
         </ul>
       </div>
 
       <div>
-        <h5>内容分级</h5>
-        <p>本站涉及酒精搭配与生食建议，需确认年龄后浏览相关内容。</p>
+        <h5 data-en="Content rating">内容分级</h5>
+        <p data-en="This site covers alcohol pairings and raw-food notes. Please confirm your age to view that content.">本站涉及酒精搭配与生食建议，需确认年龄后浏览相关内容。</p>
         <div class="age-gate" id="ageGate">
-          <button type="button" data-age="adult" aria-pressed="false">我已满 18 岁</button>
-          <button type="button" data-age="minor" aria-pressed="false">未满 18 岁</button>
+          <button type="button" data-age="adult" aria-pressed="false" data-en="I’m 18 or older">我已满 18 岁</button>
+          <button type="button" data-age="minor" aria-pressed="false" data-en="Under 18">未满 18 岁</button>
         </div>
         <p class="age-msg" id="ageMsg"></p>
       </div>
@@ -494,8 +498,8 @@
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 拾季 SHIJI · 虚构品牌，仅用于实训演示</span>
-      <span><a href="#">隐私</a> · <a href="#">条款</a> · <a href="#">联系</a></span>
+      <span data-en="© 2026 SHIJI · Fictional brand, training demo only">© 2026 拾季 SHIJI · 虚构品牌，仅用于实训演示</span>
+      <span><a href="#" data-en="Privacy">隐私</a> · <a href="#" data-en="Terms">条款</a> · <a href="#" data-en="Contact">联系</a></span>
     </div>
   </div>
 </footer>
@@ -513,19 +517,19 @@
     </header>
 
     <div class="auth-tabs" role="tablist" aria-label="登录或注册">
-      <button type="button" role="tab" data-tab="login"  aria-selected="true"  aria-controls="loginForm">登录</button>
-      <button type="button" role="tab" data-tab="signup" aria-selected="false" aria-controls="signupForm">注册</button>
+      <button type="button" role="tab" data-tab="login"  aria-selected="true"  aria-controls="loginForm" data-en="Log in">登录</button>
+      <button type="button" role="tab" data-tab="signup" aria-selected="false" aria-controls="signupForm" data-en="Sign up">注册</button>
     </div>
 
     <!-- ---------- 登录 ---------- -->
     <form class="auth-form" id="loginForm" novalidate>
       <div class="field">
-        <label for="li-user">用户名</label>
+        <label for="li-user" data-en="Username">用户名</label>
         <input type="text" id="li-user" autocomplete="username" spellcheck="false">
       </div>
 
       <div class="field">
-        <label for="li-pass">密码</label>
+        <label for="li-pass" data-en="Password">密码</label>
         <div class="field-line">
           <input type="password" id="li-pass" autocomplete="current-password">
           <button type="button" class="eye" data-eye="li-pass" aria-pressed="false"
@@ -542,25 +546,25 @@
 
       <p class="form-msg" id="loginMsg" role="alert" aria-live="polite"></p>
 
-      <button class="btn auth-submit" type="submit">登录<span class="arrow">→</span></button>
-      <p class="auth-alt">还没有账号？<button type="button" data-switch="signup">现在注册</button></p>
+      <button class="btn auth-submit" type="submit" data-en="Log in<span class=&#39;arrow&#39;>→</span>">登录<span class="arrow">→</span></button>
+      <p class="auth-alt"><span data-en="No account yet?">还没有账号？</span><button type="button" data-switch="signup" data-en="Create one">现在注册</button></p>
     </form>
 
     <!-- ---------- 注册 ---------- -->
     <form class="auth-form" id="signupForm" novalidate hidden>
       <div class="field">
-        <label for="su-user">用户名</label>
+        <label for="su-user" data-en="Username">用户名</label>
         <input type="text" id="su-user" autocomplete="username" spellcheck="false"
                aria-describedby="rulesUser">
       </div>
       <ul class="rules" id="rulesUser" aria-live="polite">
-        <li data-rule="user-empty">不能为空</li>
-        <li data-rule="user-len">2 到 20 个字</li>
-        <li data-rule="user-num">不能全是数字</li>
+        <li data-rule="user-empty" data-en="Required">不能为空</li>
+        <li data-rule="user-len" data-en="2 to 20 characters">2 到 20 个字</li>
+        <li data-rule="user-num" data-en="Not all digits">不能全是数字</li>
       </ul>
 
       <div class="field">
-        <label for="su-pass">密码</label>
+        <label for="su-pass" data-en="Password">密码</label>
         <div class="field-line">
           <input type="password" id="su-pass" autocomplete="new-password"
                  aria-describedby="rulesPass">
@@ -576,28 +580,28 @@
         </div>
       </div>
       <ul class="rules" id="rulesPass" aria-live="polite">
-        <li data-rule="pass-empty">不能为空</li>
-        <li data-rule="pass-len">至少 8 位</li>
-        <li data-rule="pass-alpha">含字母</li>
-        <li data-rule="pass-digit">含数字</li>
-        <li data-rule="pass-special">含特殊字符 !@#$%&amp;*</li>
+        <li data-rule="pass-empty" data-en="Required">不能为空</li>
+        <li data-rule="pass-len" data-en="At least 8 characters">至少 8 位</li>
+        <li data-rule="pass-alpha" data-en="Contains a letter">含字母</li>
+        <li data-rule="pass-digit" data-en="Contains a digit">含数字</li>
+        <li data-rule="pass-special" data-en="Contains !@#$%&amp;*">含特殊字符 !@#$%&amp;*</li>
       </ul>
 
       <div class="field">
-        <label for="su-age">年龄</label>
+        <label for="su-age" data-en="Age">年龄</label>
         <input type="text" id="su-age" inputmode="numeric" autocomplete="off"
                aria-describedby="rulesAge">
       </div>
       <ul class="rules" id="rulesAge" aria-live="polite">
-        <li data-rule="age-num">必须是数字</li>
-        <li data-rule="age-range">在 0 到 120 之间</li>
+        <li data-rule="age-num" data-en="Must be a number">必须是数字</li>
+        <li data-rule="age-range" data-en="Between 0 and 120">在 0 到 120 之间</li>
       </ul>
 
       <p class="form-msg" id="signupMsg" role="alert" aria-live="polite"></p>
 
-      <button class="btn auth-submit" type="submit">创建账号<span class="arrow">→</span></button>
-      <p class="auth-alt">已有账号？<button type="button" data-switch="login">直接登录</button></p>
-      <p class="auth-note">演示环境：账号仅存在本机浏览器，密码经 SHA-256 处理后保存，不上传。</p>
+      <button class="btn auth-submit" type="submit" data-en="Create account<span class=&#39;arrow&#39;>→</span>">创建账号<span class="arrow">→</span></button>
+      <p class="auth-alt"><span data-en="Already have an account?">已有账号？</span><button type="button" data-switch="login" data-en="Log in">直接登录</button></p>
+      <p class="auth-note" data-en="Demo environment: accounts live in this browser only. Passwords are hashed locally and never uploaded.">演示环境：账号仅存在本机浏览器，密码经 SHA-256 处理后保存，不上传。</p>
     </form>
 
     <!-- ---------- 订单确认 ---------- -->
@@ -606,38 +610,38 @@
       <div class="box-items" id="orderItems"></div>
 
       <div class="field">
-        <label for="ord-name">收货人</label>
+        <label for="ord-name" data-en="Recipient">收货人</label>
         <input type="text" id="ord-name" autocomplete="name" spellcheck="false">
       </div>
 
       <div class="field">
-        <label for="ord-phone">手机号</label>
+        <label for="ord-phone" data-en="Phone">手机号</label>
         <input type="text" id="ord-phone" inputmode="numeric" autocomplete="tel" maxlength="11">
       </div>
 
       <p class="form-msg" id="orderMsg" role="alert" aria-live="polite"></p>
 
-      <button class="btn auth-submit" type="submit">确认下单<span class="arrow">→</span></button>
+      <button class="btn auth-submit" type="submit" data-en="Confirm order<span class=&#39;arrow&#39;>→</span>">确认下单<span class="arrow">→</span></button>
       <p class="auth-note" id="orderNote"></p>
     </form>
 
     <!-- ---------- 账号管理 ---------- -->
     <div class="auth-form" id="accountPane" hidden>
       <dl class="acc-meta">
-        <div><dt>用户名</dt><dd id="accName"></dd></div>
-        <div><dt>年龄</dt><dd id="accAge"></dd></div>
-        <div><dt>注册于</dt><dd id="accSince"></dd></div>
+        <div><dt data-en="Username">用户名</dt><dd id="accName"></dd></div>
+        <div><dt data-en="Age">年龄</dt><dd id="accAge"></dd></div>
+        <div><dt data-en="Joined">注册于</dt><dd id="accSince"></dd></div>
       </dl>
       <p class="acc-count" id="accCount"></p>
 
       <div class="acc-actions">
-        <button class="btn auth-submit" type="button" id="accPwToggle">修改密码</button>
-        <button class="acc-btn" type="button" id="accLogout">退出登录</button>
+        <button class="btn auth-submit" type="button" id="accPwToggle" data-en="Change password">修改密码</button>
+        <button class="acc-btn" type="button" id="accLogout" data-en="Log out">退出登录</button>
       </div>
 
       <form id="pwForm" hidden>
         <div class="field">
-          <label for="pw-cur">当前密码</label>
+          <label for="pw-cur" data-en="Current password">当前密码</label>
           <div class="field-line">
             <input type="password" id="pw-cur" autocomplete="current-password">
             <button type="button" class="eye" data-eye="pw-cur" aria-pressed="false"
@@ -653,7 +657,7 @@
         </div>
 
         <div class="field">
-          <label for="pw-new">新密码</label>
+          <label for="pw-new" data-en="New password">新密码</label>
           <div class="field-line">
             <input type="password" id="pw-new" autocomplete="new-password">
             <button type="button" class="eye" data-eye="pw-new" aria-pressed="false"
@@ -669,7 +673,7 @@
         </div>
 
         <div class="field">
-          <label for="pw-again">再输一次</label>
+          <label for="pw-again" data-en="Repeat new password">再输一次</label>
           <div class="field-line">
             <input type="password" id="pw-again" autocomplete="new-password">
             <button type="button" class="eye" data-eye="pw-again" aria-pressed="false"
@@ -687,12 +691,12 @@
         <p class="form-msg" id="pwMsg" role="alert" aria-live="polite"></p>
 
         <div class="acc-pw-actions">
-          <button class="btn auth-submit" type="submit">保存新密码</button>
-          <button class="acc-btn" type="button" id="pwCancel">取消</button>
+          <button class="btn auth-submit" type="submit" data-en="Save new password">保存新密码</button>
+          <button class="acc-btn" type="button" id="pwCancel" data-en="Cancel">取消</button>
         </div>
       </form>
 
-      <p class="auth-note">账号存在这台浏览器里，换设备不会同步。清除浏览器数据会一并清掉。</p>
+      <p class="auth-note" data-en="Accounts live in this browser and do not sync across devices. Clearing browser data removes them.">账号存在这台浏览器里，换设备不会同步。清除浏览器数据会一并清掉。</p>
     </div>
 
     <!-- ---------- 完成 ---------- -->
@@ -700,7 +704,7 @@
       <div class="done-mark" aria-hidden="true">✓</div>
       <h4 id="doneTitle">账号已创建</h4>
       <p id="doneText"></p>
-      <p class="done-note" id="doneNote" hidden>
+      <p class="done-note" id="doneNote" hidden data-en="This browser does not allow local saving, so the account lasts only on this page — you will need to log in again after a refresh.">
         这个浏览器不允许本地保存，账号只在这一页有效，刷新后需要重新登录。
       </p>
       <button class="btn" type="button" id="doneBtn">继续挑选<span class="arrow">→</span></button>
@@ -708,8 +712,9 @@
   </div>
 </div>
 
-<script src="vendor/three.min.js?v=2310"></script>
-<script src="js/site.js?v=2310"></script>
-<script src="js/orbit.js?v=2310"></script>
+<script src="js/i18n.js?v=2320"></script>
+<script src="vendor/three.min.js?v=2320"></script>
+<script src="js/site.js?v=2320"></script>
+<script src="js/orbit.js?v=2320"></script>
 </body>
 </html>

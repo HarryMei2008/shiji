@@ -16,19 +16,23 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------- 数据 ---------------- */
+  const I18N = window.SHIJI;
+  const isEN = () => !!(I18N && I18N.lang === 'en');
+  const nm = o => (isEN() && o.en) ? o.en : o.n;
+
   const ITEMS = [
-    { n: '番茄',   r: '云南 · 元谋',     c: '#B4462F', s: 0.31 },
-    { n: '罗勒',   r: '广东 · 湛江',     c: '#6E7A5E', s: 0.19 },
-    { n: '无花果', r: '山东 · 威海',     c: '#7A4A5A', s: 0.25 },
-    { n: '栗子',   r: '河北 · 迁西',     c: '#7B4A2E', s: 0.22 },
-    { n: '南瓜',   r: '黑龙江 · 双城',   c: '#C08A3E', s: 0.28 },
-    { n: '紫甘蓝', r: '甘肃 · 张掖',     c: '#6B5B7B', s: 0.26 },
-    { n: '香菇',   r: '福建 · 古田',     c: '#8A7A62', s: 0.21 },
-    { n: '柠檬',   r: '四川 · 安岳',     c: '#C0AF4A', s: 0.23 },
-    { n: '欧芹',   r: '云南 · 昆明',     c: '#5F7350', s: 0.17 },
-    { n: '洋葱',   r: '内蒙 · 乌兰察布', c: '#B9A8B4', s: 0.24 },
-    { n: '胡萝卜', r: '山东 · 潍坊',     c: '#C97B3A', s: 0.21 },
-    { n: '葡萄',   r: '新疆 · 吐鲁番',   c: '#5A4A6B', s: 0.19 }
+    { n: '番茄',   en: 'Tomato',       r: '云南 · 元谋',     re: 'Yuánmóu, Yunnan',     c: '#B4462F', s: 0.31 },
+    { n: '罗勒',   en: 'Basil',        r: '广东 · 湛江',     re: 'Zhànjiāng, Guangdong', c: '#6E7A5E', s: 0.19 },
+    { n: '无花果', en: 'Fig',          r: '山东 · 威海',     re: 'Wēihǎi, Shandong',    c: '#7A4A5A', s: 0.25 },
+    { n: '栗子',   en: 'Chestnut',     r: '河北 · 迁西',     re: 'Qiānxī, Hebei',       c: '#7B4A2E', s: 0.22 },
+    { n: '南瓜',   en: 'Pumpkin',      r: '黑龙江 · 双城',   re: 'Shuāngchéng, Heilongjiang', c: '#C08A3E', s: 0.28 },
+    { n: '紫甘蓝', en: 'Red cabbage',  r: '甘肃 · 张掖',     re: 'Zhāngyè, Gansu',      c: '#6B5B7B', s: 0.26 },
+    { n: '香菇',   en: 'Shiitake',     r: '福建 · 古田',     re: 'Gǔtián, Fujian',      c: '#8A7A62', s: 0.21 },
+    { n: '柠檬',   en: 'Lemon',        r: '四川 · 安岳',     re: 'Ānyuè, Sichuan',      c: '#C0AF4A', s: 0.23 },
+    { n: '欧芹',   en: 'Parsley',      r: '云南 · 昆明',     re: 'Kūnmíng, Yunnan',     c: '#5F7350', s: 0.17 },
+    { n: '洋葱',   en: 'Onion',        r: '内蒙 · 乌兰察布', re: 'Ulanqab, Inner Mongolia', c: '#B9A8B4', s: 0.24 },
+    { n: '胡萝卜', en: 'Carrot',       r: '山东 · 潍坊',     re: 'Wéifāng, Shandong',   c: '#C97B3A', s: 0.21 },
+    { n: '葡萄',   en: 'Grape',        r: '新疆 · 吐鲁番',   re: 'Turpan, Xinjiang',    c: '#5A4A6B', s: 0.19 }
   ];
 
   const pad = i => String(i + 1).padStart(2, '0');
@@ -39,7 +43,7 @@
   if (legend) {
     ITEMS.forEach((it, i) => {
       const li = document.createElement('li');
-      li.innerHTML = '<b>' + pad(i) + '</b><span>' + it.n + '</span>';
+      li.innerHTML = '<b>' + pad(i) + '</b><span>' + nm(it) + '</span>';
       legend.appendChild(li);
       rows.push(li);
     });
@@ -151,24 +155,38 @@
   const elOrig  = document.getElementById('pickOrigin');
   const elIdx   = document.getElementById('pickIdx');
 
-  function setHover(i) {
-    if (i === hovered) return;
-    hovered = i;
-
+  function paintReadout(i) {
     rows.forEach(li => li.classList.remove('on'));
 
     if (i < 0) {
       readout.classList.remove('on');
-      elName.textContent = '当季';
-      elOrig.textContent = '霜降 · 第二十一期';
+      elName.textContent = I18N ? I18N.t('当季') : '当季';
+      elOrig.textContent = I18N ? I18N.t('霜降 · 第二十一期') : '霜降 · 第二十一期';
       elIdx.textContent = '';
     } else {
       readout.classList.add('on');
       elIdx.textContent = pad(i);
-      elName.textContent = ITEMS[i].n;
-      elOrig.textContent = ITEMS[i].r;
+      elName.textContent = nm(ITEMS[i]);
+      elOrig.textContent = isEN() ? ITEMS[i].re : ITEMS[i].r;
       if (rows[i]) rows[i].classList.add('on');
     }
+  }
+
+  function setHover(i) {
+    if (i === hovered) return;
+    hovered = i;
+    paintReadout(i);
+  }
+
+  /* 切换语言：名录与读数一起换（悬停状态保持不变） */
+  if (I18N) {
+    I18N.onLang(() => {
+      rows.forEach((li, i) => {
+        const s = li.querySelector('span');
+        if (s) s.textContent = nm(ITEMS[i]);
+      });
+      paintReadout(hovered);
+    });
   }
 
   canvas.addEventListener('pointerdown', e => {

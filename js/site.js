@@ -11,6 +11,15 @@
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
+  /* ---------- 双语 ----------
+     静态文案由 i18n.js 处理（HTML 里的 data-en）；
+     这里只管 JS 生成的文案。词典缺词时返回中文，不会出现空字符串。 */
+  const I18N = window.SHIJI;
+  const T = (s, ...args) => (I18N ? I18N.t(s, ...args) : s);
+  const isEN = () => !!(I18N && I18N.lang === 'en');
+  const nm = o => (isEN() && o.en) ? o.en : o.n;
+  const onLang = fn => { if (I18N) I18N.onLang(fn); };
+
   /* ============ 1. Hero 视频 ============ */
   (function heroVideo() {
     const v = $('#heroVideo');
@@ -133,34 +142,34 @@
     if (!box) return;
 
     const ING = {
-      tomato:   { n: '番茄',     p: 8,  o: '云南元谋',    cat: 'season' },
-      basil:    { n: '罗勒',     p: 5,  o: '广东湛江',    cat: 'season' },
-      fig:      { n: '无花果',   p: 16, o: '山东威海',    cat: 'season' },
-      chestnut: { n: '栗子',     p: 18, o: '河北迁西',    cat: 'season' },
-      pumpkin:  { n: '南瓜',     p: 12, o: '黑龙江双城',  cat: 'season' },
-      cabbage:  { n: '紫甘蓝',   p: 9,  o: '甘肃张掖',    cat: 'season' },
-      shiitake: { n: '香菇',     p: 14, o: '福建古田',    cat: 'season' },
-      lemon:    { n: '柠檬',     p: 6,  o: '四川安岳',    cat: 'season' },
-      parsley:  { n: '欧芹',     p: 5,  o: '云南昆明',    cat: 'season' },
-      onion:    { n: '洋葱',     p: 3,  o: '内蒙乌兰察布', cat: 'season' },
-      carrot:   { n: '胡萝卜',   p: 4,  o: '山东潍坊',    cat: 'season' },
-      grape:    { n: '葡萄',     p: 22, o: '新疆吐鲁番',  cat: 'season' },
+      tomato:   { n: '番茄',     en: 'Tomato',        p: 8,  o: '云南元谋',    oe: 'Yuánmóu, Yunnan',    cat: 'season' },
+      basil:    { n: '罗勒',     en: 'Basil',         p: 5,  o: '广东湛江',    oe: 'Zhànjiāng, Guangdong', cat: 'season' },
+      fig:      { n: '无花果',   en: 'Fig',           p: 16, o: '山东威海',    oe: 'Wēihǎi, Shandong',   cat: 'season' },
+      chestnut: { n: '栗子',     en: 'Chestnut',      p: 18, o: '河北迁西',    oe: 'Qiānxī, Hebei',      cat: 'season' },
+      pumpkin:  { n: '南瓜',     en: 'Pumpkin',       p: 12, o: '黑龙江双城',  oe: 'Shuāngchéng, Heilongjiang', cat: 'season' },
+      cabbage:  { n: '紫甘蓝',   en: 'Red cabbage',   p: 9,  o: '甘肃张掖',    oe: 'Zhāngyè, Gansu',     cat: 'season' },
+      shiitake: { n: '香菇',     en: 'Shiitake',      p: 14, o: '福建古田',    oe: 'Gǔtián, Fujian',     cat: 'season' },
+      lemon:    { n: '柠檬',     en: 'Lemon',         p: 6,  o: '四川安岳',    oe: 'Ānyuè, Sichuan',     cat: 'season' },
+      parsley:  { n: '欧芹',     en: 'Parsley',       p: 5,  o: '云南昆明',    oe: 'Kūnmíng, Yunnan',    cat: 'season' },
+      onion:    { n: '洋葱',     en: 'Onion',         p: 3,  o: '内蒙乌兰察布', oe: 'Ulanqab, Inner Mongolia', cat: 'season' },
+      carrot:   { n: '胡萝卜',   en: 'Carrot',        p: 4,  o: '山东潍坊',    oe: 'Wéifāng, Shandong',  cat: 'season' },
+      grape:    { n: '葡萄',     en: 'Grape',         p: 22, o: '新疆吐鲁番',  oe: 'Turpan, Xinjiang',   cat: 'season' },
 
-      olive:    { n: '橄榄油',   p: 28, o: '常备', cat: 'pantry' },
-      mozz:     { n: '马苏里拉', p: 22, o: '常备', cat: 'pantry' },
-      butter:   { n: '黄油',     p: 15, o: '常备', cat: 'pantry' },
-      rice:     { n: '米饭',     p: 4,  o: '常备', cat: 'pantry' },
-      chicken:  { n: '鸡胸',     p: 26, o: '常备', cat: 'pantry' },
-      bread:    { n: '面包',     p: 10, o: '常备', cat: 'pantry' }
+      olive:    { n: '橄榄油',   en: 'Olive oil',     p: 28, o: '常备', oe: 'pantry', cat: 'pantry' },
+      mozz:     { n: '马苏里拉', en: 'Mozzarella',    p: 22, o: '常备', oe: 'pantry', cat: 'pantry' },
+      butter:   { n: '黄油',     en: 'Butter',        p: 15, o: '常备', oe: 'pantry', cat: 'pantry' },
+      rice:     { n: '米饭',     en: 'Rice',          p: 4,  o: '常备', oe: 'pantry', cat: 'pantry' },
+      chicken:  { n: '鸡胸',     en: 'Chicken breast',p: 26, o: '常备', oe: 'pantry', cat: 'pantry' },
+      bread:    { n: '面包',     en: 'Bread',         p: 10, o: '常备', oe: 'pantry', cat: 'pantry' }
     };
 
     const DISHES = [
-      { id: 'd1', n: '番茄罗勒沙拉',   t: '8 分钟',  ing: ['tomato', 'basil', 'olive'] },
-      { id: 'd2', n: '无花果芝士拼',   t: '5 分钟',  ing: ['fig', 'mozz', 'basil'] },
-      { id: 'd3', n: '栗子南瓜浓汤',   t: '25 分钟', ing: ['chestnut', 'pumpkin', 'butter', 'onion'] },
-      { id: 'd4', n: '香菇甘蓝烩饭',   t: '20 分钟', ing: ['shiitake', 'cabbage', 'rice', 'butter'] },
-      { id: 'd5', n: '柠檬香草烤鸡',   t: '35 分钟', ing: ['lemon', 'parsley', 'chicken', 'olive'] },
-      { id: 'd6', n: '番茄芝士烤面包', t: '12 分钟', ing: ['bread', 'tomato', 'mozz', 'basil'] }
+      { id: 'd1', n: '番茄罗勒沙拉',   en: 'Tomato & basil salad',   t: '8 分钟',  te: '8 min',  ing: ['tomato', 'basil', 'olive'] },
+      { id: 'd2', n: '无花果芝士拼',   en: 'Fig & cheese plate',     t: '5 分钟',  te: '5 min',  ing: ['fig', 'mozz', 'basil'] },
+      { id: 'd3', n: '栗子南瓜浓汤',   en: 'Chestnut & pumpkin soup', t: '25 分钟', te: '25 min', ing: ['chestnut', 'pumpkin', 'butter', 'onion'] },
+      { id: 'd4', n: '香菇甘蓝烩饭',   en: 'Shiitake & cabbage rice', t: '20 分钟', te: '20 min', ing: ['shiitake', 'cabbage', 'rice', 'butter'] },
+      { id: 'd5', n: '柠檬香草烤鸡',   en: 'Lemon herb chicken',     t: '35 分钟', te: '35 min', ing: ['lemon', 'parsley', 'chicken', 'olive'] },
+      { id: 'd6', n: '番茄芝士烤面包', en: 'Tomato cheese toast',    t: '12 分钟', te: '12 min', ing: ['bread', 'tomato', 'mozz', 'basil'] }
     ];
 
     const MAX_DISH = 3;
@@ -223,19 +232,21 @@
       b.setAttribute('aria-pressed', 'false');
       b.innerHTML =
         '<span class="num">' + pad(i) + '</span>' +
-        '<span class="dname">' + d.n + '</span>' +
-        '<span class="meta">' + d.t + ' · ' + d.ing.length + ' 样</span>' +
-        '<span class="state">未选</span>';
+        '<span class="dname">' + nm(d) + '</span>' +
+        '<span class="meta">' + (isEN() ? d.te : d.t) + ' · ' + T('{0} 样', d.ing.length) + '</span>' +
+        '<span class="state">' + T('未选') + '</span>';
       b.addEventListener('click', () => toggleDish(d.id, b));
       elDishes.appendChild(b);
       dishEls.set(d.id, b);
     });
 
     const itemEls = new Map();
+    const groupLabels = [];
     ['season', 'pantry'].forEach(cat => {
       const label = document.createElement('p');
       label.className = 'group-label';
-      label.textContent = cat === 'season' ? '当季食材' : '厨房常备';
+      label.textContent = T(cat === 'season' ? '当季食材' : '厨房常备');
+      groupLabels.push(label);
       elPantry.appendChild(label);
 
       const wrap = document.createElement('div');
@@ -251,7 +262,7 @@
         b.innerHTML =
           '<span class="box"><svg viewBox="0 0 16 16">' +
           '<polyline points="3.2,8.4 6.4,11.6 12.8,4.8"></polyline></svg></span>' +
-          '<span>' + it.n + '</span>' +
+          '<span class="nlabel">' + nm(it) + '</span>' +
           '<span class="price">¥' + it.p + '</span>';
         b.addEventListener('click', () => toggleHave(k, b));
         wrap.appendChild(b);
@@ -297,10 +308,10 @@
       const el = $('#boxSave');
       if (!el) return;
       if (signedName) {
-        el.textContent = '已保存到 ' + signedName + ' 的账号';
+        el.textContent = T('已保存到 {0} 的账号', signedName);
         el.disabled = true;
       } else {
-        el.textContent = '登录后保存这一箱';
+        el.textContent = T('登录后保存这一箱');
         el.disabled = false;
       }
     }
@@ -314,25 +325,25 @@
       const price = miss.reduce((s, k) => s + ING[k].p, 0);
       if (!miss.length) return;
 
-      elBoxMeta.textContent = sel.length + ' 道菜 · 缺 ' + miss.length + ' 样 · ¥' + price;
+      elBoxMeta.textContent = T('{0} 道菜 · 缺 {1} 样 · ¥{2}', sel.length, miss.length, price);
       elBoxItems.innerHTML = '';
       miss.forEach(k => {
         const s = document.createElement('span');
-        s.textContent = ING[k].n;
+        s.textContent = nm(ING[k]);
         elBoxItems.appendChild(s);
       });
 
       elBox.hidden = false;
       inBox = true;
       elCta.disabled = true;
-      elCta.firstChild.nodeValue = '已加入本周箱';
+      elCta.firstChild.nodeValue = T('已加入本周箱');
       updateSaveState();
 
       // 把这一箱交给订阅区
       document.dispatchEvent(new CustomEvent('shiji:box', {
         detail: {
-          dishes: sel.map(d => d.n),
-          items: miss.map(k => ING[k].n),
+          dishes: sel.map(d => nm(d)),
+          items: miss.map(k => nm(ING[k])),
           count: miss.length,
           price: price
         }
@@ -395,12 +406,12 @@
         const state = b.querySelector('.state');
         if (!selected.has(d.id)) {
           b.classList.remove('ready');
-          state.textContent = '未选';
+          state.textContent = T('未选');
           return;
         }
         const lack = d.ing.filter(k => !have.has(k)).length;
         b.classList.toggle('ready', lack === 0);
-        state.textContent = lack === 0 ? '已配齐' : '差 ' + lack + ' 样';
+        state.textContent = lack === 0 ? T('已配齐') : T('差 {0} 样', lack);
       });
 
       const needArr = [...need];
@@ -415,14 +426,14 @@
           const s = document.createElement('span');
           s.className = 'chip ok';
           s.style.textDecoration = 'none';
-          s.textContent = '选一道菜，这里会列出需要的食材';
+          s.textContent = T('选一道菜，这里会列出需要的食材');
           elNeed.appendChild(s);
         } else {
           needArr.forEach((k, i) => {
             const c = document.createElement('span');
             c.className = 'chip ' + (have.has(k) ? 'ok' : 'miss');
             c.style.animationDelay = (i * 28) + 'ms';
-            c.textContent = ING[k].n;
+            c.textContent = nm(ING[k]);
             elNeed.appendChild(c);
             chipRefs.push({ el: c, key: k });
           });
@@ -444,25 +455,25 @@
       const made = sel.filter(d => d.ing.every(k => have.has(k))).length;
 
       if (sel.length === 0) {
-        elRingT.textContent = '还没选菜';
-        elRingS.textContent = '选一道菜，我们开始算';
+        elRingT.textContent = T('还没选菜');
+        elRingS.textContent = T('选一道菜，我们开始算');
       } else if (miss.length === 0) {
-        elRingT.textContent = '全都齐了';
-        elRingS.textContent = sel.length + ' 道菜，' + need.size + ' 样食材，一样不缺';
+        elRingT.textContent = T('全都齐了');
+        elRingS.textContent = T('{0} 道菜，{1} 样食材，一样不缺', sel.length, need.size);
       } else {
-        elRingT.textContent = '还差 ' + miss.length + ' 样';
-        elRingS.textContent = '能做出 ' + made + ' 道 · 共 ' + sel.length + ' 道';
+        elRingT.textContent = T('还差 {0} 样', miss.length);
+        elRingS.textContent = T('能做出 {0} 道 · 共 {1} 道', made, sel.length);
       }
 
       if (sel.length === 0) {
         elCta.disabled = true;
-        elCta.firstChild.nodeValue = '先选一道菜';
+        elCta.firstChild.nodeValue = T('先选一道菜');
       } else if (miss.length === 0) {
         elCta.disabled = true;
-        elCta.firstChild.nodeValue = '已配齐，无需下单';
+        elCta.firstChild.nodeValue = T('已配齐，无需下单');
       } else {
         elCta.disabled = false;
-        elCta.firstChild.nodeValue = '加入本周箱';
+        elCta.firstChild.nodeValue = T('加入本周箱');
       }
 
       // 同步给 3D 组件（可选联动，没有也不报错）
@@ -498,10 +509,35 @@
       update();
     });
 
+    /* --- 切换语言：重建所有由 JS 生成的文案 --- */
+    function relabel() {
+      DISHES.forEach(d => {
+        const b = dishEls.get(d.id);
+        b.querySelector('.dname').textContent = nm(d);
+        b.querySelector('.meta').textContent =
+          (isEN() ? d.te : d.t) + ' · ' + T('{0} 样', d.ing.length);
+      });
+
+      if (groupLabels[0]) groupLabels[0].textContent = T('当季食材');
+      if (groupLabels[1]) groupLabels[1].textContent = T('厨房常备');
+      itemEls.forEach((b, k) => {
+        const lab = b.querySelector('.nlabel');
+        if (lab) lab.textContent = nm(ING[k]);
+      });
+
+      const wasBox = inBox;
+      needSig = '';      // 强制重建需求清单，否则旧的食材名会留在页面上
+      update();          // update 会关掉「已加入」，所以下面再还原一次
+      if (wasBox) addToBox();
+      updateSaveState();
+    }
+    onLang(relabel);
+
     loadDraft();
     dishEls.forEach((b, id) => b.setAttribute('aria-pressed', selected.has(id) ? 'true' : 'false'));
     itemEls.forEach((b, id) => b.setAttribute('aria-pressed', have.has(id) ? 'true' : 'false'));
     update();
+    updateSaveState();   // 英文直开时把「登录后保存这一箱」也规范成当前语言
   })();
 
   /* ============ 6. 菜单手风琴 ============ */
@@ -539,6 +575,7 @@
     const priceEl = $('#planPrice');
     const metaEl  = $('#planMeta');
     let cur = 68;
+    let cycle = '1';
 
     seg.addEventListener('click', e => {
       const btn = e.target.closest('button[data-cycle]');
@@ -547,8 +584,9 @@
       $$('button[data-cycle]', seg).forEach(b =>
         b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
 
-      const cfg = PLANS[btn.dataset.cycle];
-      metaEl.textContent = cfg.m;
+      cycle = btn.dataset.cycle;
+      const cfg = PLANS[cycle];
+      metaEl.textContent = T(cfg.m);
 
       if (reduceMotion) { priceEl.textContent = cfg.p; cur = cfg.p; return; }
 
@@ -562,6 +600,16 @@
         if (k < 1) requestAnimationFrame(step);
       })(t0);
     });
+
+    // 语言切换：重写周期说明（若这一箱已进入结算，说明由 auth 模块接管，这里不动）
+    onLang(() => {
+      const cta = $('#planCta');
+      if (cta && cta.dataset.box === '1') return;
+      metaEl.textContent = T(PLANS[cycle].m);
+    });
+
+    // 英文直开时把静态初始文案规范成当前语言
+    metaEl.textContent = T(PLANS[cycle].m);
   })();
 
   /* ============ 8. 年龄确认 ============ */
@@ -579,12 +627,16 @@
 
       if (btn.dataset.age === 'adult') {
         msg.classList.remove('restrict');
-        msg.textContent = '已登记。酒精搭配与生食建议已解锁。';
+        msg.dataset.key = '已登记。酒精搭配与生食建议已解锁。';
+        msg.textContent = T(msg.dataset.key);
       } else {
         msg.classList.add('restrict');
-        msg.textContent = '已记录。根据规定，酒精搭配与刺身类生食建议将不向你展示。';
+        msg.dataset.key = '已记录。根据规定，酒精搭配与刺身类生食建议将不向你展示。';
+        msg.textContent = T(msg.dataset.key);
       }
     });
+
+    onLang(() => { if (msg.dataset.key) msg.textContent = T(msg.dataset.key); });
   })();
 
   /* ============ 9. 账号：登录 / 注册 ============
@@ -741,8 +793,8 @@
         const input = document.getElementById(btn.dataset.eye);
         if (input) input.type = 'password';
         btn.setAttribute('aria-pressed', 'false');
-        btn.setAttribute('aria-label', '显示密码');
-        btn.title = '显示密码';
+        btn.setAttribute('aria-label', T('显示密码'));
+        btn.title = T('显示密码');
       });
     }
 
@@ -755,8 +807,8 @@
         const show = input.type === 'password';
         input.type = show ? 'text' : 'password';
         btn.setAttribute('aria-pressed', show ? 'true' : 'false');
-        btn.setAttribute('aria-label', show ? '隐藏密码' : '显示密码');
-        btn.title = show ? '隐藏密码' : '显示密码';
+        btn.setAttribute('aria-label', show ? T('隐藏密码') : T('显示密码'));
+        btn.title = show ? T('隐藏密码') : T('显示密码');
 
         input.focus({ preventScroll: true });
         // 改 type 会把光标甩到开头，重新放到末尾
@@ -776,14 +828,14 @@
       donePane.hidden = name !== 'done';
       tabs.forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name ? 'true' : 'false'));
       if (name === 'login') {
-        authKicker.textContent = '拾季 · 账号';
-        authTitle.textContent = '回到你的那一箱';
+        authKicker.textContent = T('拾季 · 账号');
+        authTitle.textContent = T('回到你的那一箱');
       } else if (name === 'signup') {
-        authKicker.textContent = '拾季 · 账号';
-        authTitle.textContent = '留一个收货的名';
+        authKicker.textContent = T('拾季 · 账号');
+        authTitle.textContent = T('留一个收货的名');
       } else if (name === 'order') {
-        authKicker.textContent = '拾季 · 订单';
-        authTitle.textContent = '确认这一箱';
+        authKicker.textContent = T('拾季 · 订单');
+        authTitle.textContent = T('确认这一箱');
       }
       $('#loginMsg').textContent = '';
       $('#signupMsg').textContent = '';
@@ -823,7 +875,7 @@
     function showDone(title, text, btnText, action) {
       showPane('done');
       $('#doneNote').hidden = true;
-      authKicker.textContent = '拾季 · 账号';
+      authKicker.textContent = T('拾季 · 账号');
       authTitle.textContent = title;
       doneTitle.textContent = title;
       doneText.textContent = text;
@@ -835,10 +887,10 @@
     function setSigned(name) {
       openLbl.textContent = name;
       openBtn.classList.add('signed');
-      openBtn.setAttribute('aria-label', '已登录为 ' + name + '，点击管理账号');
+      openBtn.setAttribute('aria-label', T('已登录为 {0}，点击管理账号', name));
     }
     function clearSigned() {
-      openLbl.textContent = '登录';
+      openLbl.textContent = T('登录');
       openBtn.classList.remove('signed');
       openBtn.removeAttribute('aria-label');
     }
@@ -852,17 +904,19 @@
     /* ---------- 账号面板 ---------- */
     function renderAccount(rec) {
       showPane('account');
-      authKicker.textContent = '拾季 · 已登录';
-      authTitle.textContent = '你好，' + rec.u;
+      authKicker.textContent = T('拾季 · 已登录');
+      authTitle.textContent = T('你好，{0}', rec.u);
 
       $('#accName').textContent = rec.u;
-      $('#accAge').textContent  = rec.age + ' 岁';
-      $('#accSince').textContent = new Date(rec.at).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+      $('#accAge').textContent  = T('{0} 岁', rec.age);
+      $('#accSince').textContent = new Date(rec.at).toLocaleDateString(
+        isEN() ? 'en-GB' : 'zh-CN',
+        { year: 'numeric', month: 'long', day: 'numeric' });
 
       const total = Object.keys(readUsers()).length;
       $('#accCount').textContent = total > 1
-        ? '这台浏览器共 ' + total + ' 个账号 · 用同一个用户名登录即可切换'
-        : '这台浏览器只有你一个账号';
+        ? T('这台浏览器共 {0} 个账号 · 用同一个用户名登录即可切换', total)
+        : T('这台浏览器只有你一个账号');
       $('#pwForm').hidden = true;
       $('#pwMsg').textContent = '';
     }
@@ -884,18 +938,18 @@
       e.preventDefault();
       const msg = $('#pwMsg');
       const rec = currentUser();
-      if (!rec) { msg.textContent = '登录状态已失效，请重新登录。'; return; }
+      if (!rec) { msg.textContent = T('登录状态已失效，请重新登录。'); return; }
 
       const cur = $('#pw-cur').value;
       const next = $('#pw-new').value;
       const again = $('#pw-again').value;
 
-      if ((await digest(cur)) !== rec.h) { msg.textContent = '当前密码不对。'; $('#pw-cur').focus(); return; }
-      if (next !== again) { msg.textContent = '两次输入的新密码不一致。'; $('#pw-again').focus(); return; }
+      if ((await digest(cur)) !== rec.h) { msg.textContent = T('当前密码不对。'); $('#pw-cur').focus(); return; }
+      if (next !== again) { msg.textContent = T('两次输入的新密码不一致。'); $('#pw-again').focus(); return; }
 
       // 新密码沿用注册时的同一套规则，只是不再要求同时含字母和数字之外的额外条件
       const okPw = next.length >= 8 && /[A-Za-z]/.test(next) && /\d/.test(next) && /[!@#$%&*]/.test(next);
-      if (!okPw) { msg.textContent = '新密码至少 8 位，且要同时含字母、数字和特殊字符 !@#$%&*。'; return; }
+      if (!okPw) { msg.textContent = T('新密码至少 8 位，且要同时含字母、数字和特殊字符 !@#$%&*。'); return; }
 
       const users = readUsers();
       users[rec.u] = Object.assign({}, rec, { h: await digest(next), at: rec.at });
@@ -904,7 +958,7 @@
       $('#pw-cur').value = $('#pw-new').value = $('#pw-again').value = '';
       $('#pwForm').hidden = true;
       msg.classList.add('ok');
-      msg.textContent = saved ? '密码已更新。' : '密码已更新（仅本次会话）。';
+      msg.textContent = saved ? T('密码已更新。') : T('密码已更新（仅本次会话）。');
     });
 
     /* ---------- 事件 ---------- */
@@ -999,9 +1053,9 @@
       const bad = ['user', 'pass', 'age'].find(k => !fieldOk(k));
       if (bad) {
         FIELDS[bad].input.focus();
-        msg.textContent = bad === 'user' ? '用户名还没符合要求。'
-                        : bad === 'pass' ? '密码还没符合要求。'
-                        : '年龄填得不对。';
+        msg.textContent = bad === 'user' ? T('用户名还没符合要求。')
+                        : bad === 'pass' ? T('密码还没符合要求。')
+                        : T('年龄填得不对。');
         return;
       }
 
@@ -1011,7 +1065,7 @@
       // 多账号：已存在同名账号时不静默覆盖，否则前一个人的密码就再也登不进去了
       const users = readUsers();
       if (users[name]) {
-        msg.textContent = '这个用户名已经被注册了，换一个，或者直接登录。';
+        msg.textContent = T('这个用户名已经被注册了，换一个，或者直接登录。');
         FIELDS.user.input.focus();
         return;
       }
@@ -1038,11 +1092,11 @@
       // 存不进 localStorage 的提示改到标题和页面上的小字，不塞进欢迎语正文
       // —— 正常成功时那句警告永远不会出现（saved 为 true），但结构上不该混在一起
       showDone(
-        saved ? '账号已创建' : '账号已创建 · 仅本次会话',
+        saved ? T('账号已创建') : T('账号已创建 · 仅本次会话'),
         age < 18
-          ? name + '，欢迎。按你填的年龄，酒精搭配与刺身类生食建议会保持隐藏，其余内容照常。'
-          : name + '，欢迎。每期开箱前三天，我们会发短信通知你这一箱的内容。',
-        '继续挑选', close
+          ? T('{0}，欢迎。按你填的年龄，酒精搭配与刺身类生食建议会保持隐藏，其余内容照常。', name)
+          : T('{0}，欢迎。每期开箱前三天，我们会发短信通知你这一箱的内容。', name),
+        T('继续挑选'), close
       );
 
       if (!saved) $('#doneNote').hidden = false;
@@ -1055,14 +1109,14 @@
 
       const u = $('#li-user').value.trim();
       const p = $('#li-pass').value;
-      if (!u || !p) { msg.textContent = '用户名和密码都要填。'; return; }
+      if (!u || !p) { msg.textContent = T('用户名和密码都要填。'); return; }
 
       const users = readUsers();
       const rec = users[u];
       const hit = rec && rec.h === await digest(p);
 
       // 不区分「用户不存在」和「密码错」，避免泄露账号是否注册过
-      if (!hit) { msg.textContent = '账号或密码不对。'; return; }
+      if (!hit) { msg.textContent = T('账号或密码不对。'); return; }
 
       writeSession(rec.u);
       setSigned(rec.u);
@@ -1086,12 +1140,12 @@
       authIntent = null;
 
       const boxText = (local && (preferLocal || !stored))
-        ? local.dishes.length + ' 道菜和 ' + local.have.length + ' 样食材存进你账号了，换台设备登录也在。'
+        ? T('{0} 道菜和 {1} 样食材存进你账号了，换台设备登录也在。', local.dishes.length, local.have.length)
         : restored
-          ? '上次勾的 ' + stored.dishes.length + ' 道菜和 ' + (stored.have || []).length + ' 样食材已经恢复了。'
-          : '这一箱还给你留着。';
+          ? T('上次勾的 {0} 道菜和 {1} 样食材已经恢复了。', stored.dishes.length, (stored.have || []).length)
+          : T('这一箱还给你留着。');
 
-      showDone('欢迎回来', rec.u + '，' + boxText, '继续挑选', close);
+      showDone(T('欢迎回来'), T('{0}，{1}', rec.u, boxText), T('继续挑选'), close);
     });
 
     /* ---------- 订单：点结算直接看订单，不再要求先登录 ---------- */
@@ -1113,8 +1167,9 @@
       const meta = $('#planMeta');
       if (!planCta) return;
       planCta.disabled = false;
-      planCta.innerHTML = '开始订阅<span class="arrow">→</span>';
-      if (meta) meta.textContent = '按每周配送，四箱一季，到期自动暂停';
+      planCta.dataset.box = '';
+      planCta.innerHTML = T('开始订阅') + '<span class="arrow">→</span>';
+      if (meta) meta.textContent = T('按每周配送，四箱一季，到期自动暂停');
     });
 
     document.addEventListener('shiji:box', e => {
@@ -1123,8 +1178,9 @@
       const meta = $('#planMeta');
       if (!planCta) return;
       planCta.disabled = false;
-      planCta.innerHTML = '结算本周箱 · ¥' + lastBox.price + '<span class="arrow">→</span>';
-      if (meta) meta.textContent = lastBox.dishes.length + ' 道菜 · 缺 ' + lastBox.count + ' 样，一周内送达';
+      planCta.dataset.box = '1';
+      planCta.innerHTML = T('结算本周箱 · ¥{0}', lastBox.price) + '<span class="arrow">→</span>';
+      if (meta) meta.textContent = T('{0} 道菜 · 缺 {1} 样，一周内送达', lastBox.dishes.length, lastBox.count);
     });
 
     function openOrder() {
@@ -1134,7 +1190,7 @@
       const sum = $('#orderSum');
       const items = $('#orderItems');
       if (lastBox) {
-        sum.textContent = lastBox.dishes.length + ' 道菜 · 缺 ' + lastBox.count + ' 样 · ¥' + lastBox.price;
+        sum.textContent = T('{0} 道菜 · 缺 {1} 样 · ¥{2}', lastBox.dishes.length, lastBox.count, lastBox.price);
         items.innerHTML = '';
         lastBox.items.forEach(n => {
           const s = document.createElement('span');
@@ -1143,15 +1199,16 @@
         });
       } else {
         const cyc = $('#segmented button[aria-pressed="true"]');
-        sum.textContent = '本季订阅 · ' + (cyc ? cyc.textContent : '每周') + ' · ¥' + $('#planPrice').textContent + '/箱';
+        sum.textContent = T('本季订阅 · {0} · ¥{1}/箱',
+          cyc ? cyc.textContent.trim() : T('每周'), $('#planPrice').textContent);
         items.innerHTML = '';
       }
 
       const rec = currentUser();
       if (rec) $('#ord-name').value = rec.u;
       $('#orderNote').textContent = rec
-        ? '将以 ' + rec.u + ' 的账号同步这一单。'
-        : '还没登录。这一单先记在本次会话里，想跨设备同步可以用右上角登录。';
+        ? T('将以 {0} 的账号同步这一单。', rec.u)
+        : T('还没登录。这一单先记在本次会话里，想跨设备同步可以用右上角登录。');
 
       focusFirst('order');
     }
@@ -1166,24 +1223,67 @@
       const name  = $('#ord-name').value.trim();
       const phone = $('#ord-phone').value.trim();
 
-      if (!name) { $('#ord-name').focus(); msg.textContent = '收货人不能为空。'; return; }
-      if (!/^1\d{10}$/.test(phone)) { $('#ord-phone').focus(); msg.textContent = '手机号要 11 位、1 开头。'; return; }
+      if (!name) { $('#ord-name').focus(); msg.textContent = T('收货人不能为空。'); return; }
+      if (!/^1\d{10}$/.test(phone)) { $('#ord-phone').focus(); msg.textContent = T('手机号要 11 位、1 开头。'); return; }
 
       planCta.disabled = true;
-      planCta.innerHTML = '已下单 · 霜降期<span class="arrow">✓</span>';
+      planCta.dataset.box = '1';
+      planCta.innerHTML = T('已下单 · 霜降期') + '<span class="arrow">✓</span>';
       const meta = $('#planMeta');
-      if (meta) meta.textContent = name + '，已登记。开箱前三天短信确认，随时可以跳过。';
+      if (meta) meta.textContent = T('{0}，已登记。开箱前三天短信确认，随时可以跳过。', name);
 
-      showDone('已下单', name + '，霜降期这一箱已经记下。开箱前三天短信确认，随时可以跳过。', '完成', close);
+      showDone(T('已下单'),
+        T('{0}，霜降期这一箱已经记下。开箱前三天短信确认，随时可以跳过。', name),
+        T('完成'), close);
+    });
+
+    /* ---------- 语言切换：账号入口与订阅按钮跟着换 ---------- */
+    onLang(() => {
+      const rec = currentUser();
+      if (rec) setSigned(rec.u); else clearSigned();
+
+      if (lastBox) {
+        const planCtaEl = $('#planCta');
+        if (planCtaEl) {
+          planCtaEl.dataset.box = '1';
+          planCtaEl.disabled = false;
+          planCtaEl.innerHTML = T('结算本周箱 · ¥{0}', lastBox.price) + '<span class="arrow">→</span>';
+        }
+        const metaEl = $('#planMeta');
+        if (metaEl) metaEl.textContent = T('{0} 道菜 · 缺 {1} 样，一周内送达', lastBox.dishes.length, lastBox.count);
+      }
+
+      // 弹窗正开着时，标题也要跟着换
+      if (!modal.hidden) {
+        const pane = !loginForm.hidden ? 'login'
+                   : !signupForm.hidden ? 'signup'
+                   : !orderForm.hidden ? 'order' : '';
+        if (pane) showPane(pane);
+        else if (!accountPane.hidden) { const r = currentUser(); if (r) renderAccount(r); }
+      }
     });
 
     /* ---------- 初始化 ---------- */
+    // 英文直开：把几个 JS 管的初始文案规范成当前语言
+    if (isEN()) {
+      authKicker.textContent = T('拾季 · 账号');
+      authTitle.textContent = T('回到你的那一箱');
+      $('#doneTitle').textContent = T('账号已创建');
+      doneBtn.innerHTML = T('继续挑选') + '<span class="arrow">→</span>';
+      const ctaEl = $('#planCta');
+      if (ctaEl && ctaEl.dataset.box !== '1') {
+        ctaEl.innerHTML = T('开始订阅') + '<span class="arrow">→</span>';
+      }
+    }
+
     // 刷新后恢复登录态时必须广播一次：否则计算器不知道已登录，
     // 加箱后仍会显示「登录后保存这一箱」，点一下又让你重新注册
     const existing = currentUser();
     if (existing) {
       setSigned(existing.u);
       document.dispatchEvent(new CustomEvent('shiji:auth-changed', { detail: { user: existing.u } }));
+    } else {
+      clearSigned();   // 未登录也要走一遍：英文环境下把「登录」规范成 "Log in"
     }
   })();
 

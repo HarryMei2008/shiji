@@ -95,6 +95,18 @@ button{font-family:inherit;color:inherit}
 .brand b{font-family:var(--serif);font-size:1.26rem;font-weight:600;letter-spacing:.18em}
 .brand span{font-size:.6rem;letter-spacing:.42em;opacity:.6;text-transform:uppercase}
 
+/* 语言切换：紧贴品牌名右侧，不与导航项抢位 */
+.nav-start{display:flex;align-items:center;gap:clamp(10px,1.6vw,20px)}
+.lang-sw{
+  font:inherit;font-size:.62rem;letter-spacing:.16em;line-height:1;
+  padding:6px 9px 5px;border:1px solid currentColor;background:none;
+  color:inherit;opacity:.55;cursor:pointer;border-radius:2px;
+  transition:opacity .35s var(--ease),background .35s var(--ease);
+}
+.lang-sw:hover{opacity:1}
+.lang-sw:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.nav.on-media .lang-sw{opacity:.7}
+
 .nav-links{display:flex;gap:clamp(18px,2.4vw,40px);list-style:none}
 .nav-links a{
   color:inherit;text-decoration:none;
@@ -773,6 +785,10 @@ button{font-family:inherit;color:inherit}
   .stats{grid-template-columns:1fr 1fr}
   .segmented{width:100%}
   .segmented button{flex:1;padding:12px 8px;font-size:.7rem}
+  .nav{padding-left:16px;padding-right:16px}
+  .nav-start{gap:8px}
+  .lang-sw{font-size:.56rem;padding:5px 7px 4px;letter-spacing:.1em}
+  .brand span{display:none}   /* 窄屏只留「拾季」，给右侧按钮让位 */
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -982,9 +998,10 @@ body.locked{overflow:hidden}
 .modal [hidden]{display:none !important}
 
 @media (max-width:480px){
-  .nav-cta{padding:10px 14px;font-size:.66rem;letter-spacing:.14em}
-  .nav-login{font-size:.68rem;letter-spacing:.12em}
-  .nav-end{gap:10px}
+  .nav-cta{padding:10px 12px;font-size:.62rem;letter-spacing:.1em}
+  .nav-login{font-size:.62rem;letter-spacing:.1em}
+  .nav-end{gap:8px}
+  .brand{gap:8px}
 }
 
 .btn[disabled]{opacity:.6;cursor:default;transform:none}

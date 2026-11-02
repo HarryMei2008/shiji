@@ -526,9 +526,20 @@
       });
 
       const wasBox = inBox;
+      // 这一箱如果已经下过单，重建时要把「已下单」态一起带回来，
+      // 否则切语言会把 CTA 从「已下单」打回「结算本周箱」——订单还在，按钮却像没下
+      const ctaEl = $('#planCta');
+      const wasDone = !!(ctaEl && ctaEl.dataset.done === '1');
+      const ordName = ctaEl ? (ctaEl.dataset.ordName || '') : '';
       needSig = '';      // 强制重建需求清单，否则旧的食材名会留在页面上
       update();          // update 会关掉「已加入」，所以下面再还原一次
       if (wasBox) addToBox();
+      if (wasDone && ctaEl) {
+        // 连按钮禁用态和下单人一起还原，交给 auth 模块的 onLang 重写文案
+        ctaEl.dataset.done = '1';
+        ctaEl.dataset.ordName = ordName;
+        ctaEl.disabled = true;
+      }
       updateSaveState();
     }
     onLang(relabel);
@@ -1157,6 +1168,7 @@
     });
 
     let lastBox = null;
+    let lastOrderName = '';
 
     // 箱子内容一变，之前算出的结算数据立刻作废。
     // 否则改完菜再点「结算」，会拿旧价格、旧菜品去下单——账对不上。
@@ -1168,6 +1180,9 @@
       if (!planCta) return;
       planCta.disabled = false;
       planCta.dataset.box = '';
+      planCta.dataset.done = '';
+      planCta.dataset.ordName = '';
+      lastOrderName = '';
       planCta.innerHTML = T('开始订阅') + '<span class="arrow">→</span>';
       if (meta) meta.textContent = T('按每周配送，四箱一季，到期自动暂停');
     });
@@ -1179,6 +1194,9 @@
       if (!planCta) return;
       planCta.disabled = false;
       planCta.dataset.box = '1';
+      planCta.dataset.done = '';
+      planCta.dataset.ordName = '';
+      lastOrderName = '';
       planCta.innerHTML = T('结算本周箱 · ¥{0}', lastBox.price) + '<span class="arrow">→</span>';
       if (meta) meta.textContent = T('{0} 道菜 · 缺 {1} 样，一周内送达', lastBox.dishes.length, lastBox.count);
     });
@@ -1228,6 +1246,9 @@
 
       planCta.disabled = true;
       planCta.dataset.box = '1';
+      planCta.dataset.done = '1';
+      planCta.dataset.ordName = name;
+      lastOrderName = name;
       planCta.innerHTML = T('已下单 · 霜降期') + '<span class="arrow">✓</span>';
       const meta = $('#planMeta');
       if (meta) meta.textContent = T('{0}，已登记。开箱前三天短信确认，随时可以跳过。', name);
@@ -1242,13 +1263,29 @@
       const rec = currentUser();
       if (rec) setSigned(rec.u); else clearSigned();
 
-      if (lastBox) {
-        const planCtaEl = $('#planCta');
-        if (planCtaEl) {
+      const planCtaEl = $('#planCta');
+      if (planCtaEl) {
+        if (planCtaEl.dataset.done === '1') {
+          // 已下单：保持「已下单」态，不能因为切语言退回「结算本周箱」
+          planCtaEl.innerHTML = T('已下单 · 霜降期') + '<span class="arrow">✓</span>';
+          const metaEl = $('#planMeta');
+          const ordName = planCtaEl.dataset.ordName || lastOrderName;
+          if (metaEl && ordName) {
+            metaEl.textContent = T('{0}，已登记。开箱前三天短信确认，随时可以跳过。', ordName);
+          }
+        } else if (lastBox) {
           planCtaEl.dataset.box = '1';
           planCtaEl.disabled = false;
           planCtaEl.innerHTML = T('结算本周箱 · ¥{0}', lastBox.price) + '<span class="arrow">→</span>';
+        } else {
+          // 默认态：data-en 已能处理，这里再兜一次，避免 JS 与静态文案不同步
+          planCtaEl.dataset.box = '';
+          planCtaEl.disabled = false;
+          planCtaEl.innerHTML = T('开始订阅') + '<span class="arrow">→</span>';
         }
+      }
+      // 已下单时 meta 显示「已登记…」，切语言不能被箱子信息覆盖
+      if (lastBox && !(planCtaEl && planCtaEl.dataset.done === '1')) {
         const metaEl = $('#planMeta');
         if (metaEl) metaEl.textContent = T('{0} 道菜 · 缺 {1} 样，一周内送达', lastBox.dishes.length, lastBox.count);
       }

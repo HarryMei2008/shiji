@@ -2,6 +2,8 @@
 
 当季食材订阅品牌官网 · 交互式单页站点 · 中英双语
 
+**简体中文** · [English](README.en.md)
+
 ## 线上地址
 
 - 中文版：https://harrymei2008.github.io/shiji/
